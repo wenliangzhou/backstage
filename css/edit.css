@@ -1,0 +1,76 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+input:focus,
+select:focus {
+    outline: none;
+    border: solid 1px rgb(125, 125, 125);
+    -moz-box-shadow: 2px 2px 13px -5px #8B658C;
+    -webkit-box-shadow: 2px 2px 13px -5px #8B658C;
+    box-shadow: 2px 2px 13px -5px #8B658C;
+}
+html input[disabled] {
+    cursor: not-allowed;
+}
+/* 左文字右表格CSS */
+.edit-container p,
+.edit-container input,
+select {
+    display: inline-block;
+    border: solid 1px rgb(210, 210, 210);
+    padding: 5px 20px;
+    border-radius: 5px;
+    width: 75%;
+    vertical-align: middle;
+    box-sizing: border-box;
+}
+.edit-container{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 7px 10px;
+}
+.edit-container span{
+    vertical-align: middle;
+    width: 25%;
+    box-sizing: border-box;
+    display: inline-block;
+    text-align: right;
+    padding-right: 10px;
+    white-space: nowrap;
+}
+.btn-x{
+    border-radius: 5px;
+    padding: 5px 10px;
+    background: green;
+    color: white;
+}
+.btn-x:hover{
+    opacity: 0.9;
+}
+.tab-btn{
+    background: red !important;
+    color: white !important;
+}
+.tab-btn:hover{
+    opacity: 0.7;
+}
+.edit-input-li{
+    display: inline-block;
+    border: solid 1px rgb(210, 210, 210);
+    padding: 5px 20px;
+    border-radius: 5px;
+    width: 75%;
+    vertical-align: middle;
+    box-sizing: border-box;
+    margin: 5px;
+}
+.boxcenter{
+    margin: 0px auto;
+}
+
+#submit{
+    display: block !important;
+    width: 100px;
+    margin: 10px auto;
+}
