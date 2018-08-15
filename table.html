@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="js/layui/css/layui.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="js/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/biaoge.css">
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/layui/layui.js"></script>
@@ -98,29 +98,7 @@
             -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
             transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
         }
-        .pagination{
-            margin-left: 20px;
-            display: block;
-            min-width: 800px;
-            height: 60px;
-            margin: 10px;
-        }
-        .pagination a{
-            display: inline-block;
-            vertical-align: middle; 
-            background-color: #fff;
-            color: #333 !important;
-            font-size: 12px;
-        }
-        .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
-            z-index: 3;
-            color: white !important;
-            cursor: default;
-            background-color:#009688;
-        }
-        .pagination .disabled{
-            opacity: 0.5;
-        }
+       
         @media screen and (max-width: 450px) {
             .layui-layer-iframe {
                 width: 80% !important;
@@ -183,9 +161,18 @@
 </script>
 <body>
     <div class="top">
-
-            <input type="text" class="form-control" id="search" placeholder="手机号码 / 账户名称">
-             <button class="btn btn-primary" id="search_btn">搜索</button>
+        <form action="" id="shaixuan">
+            <input type="text" class="form-control" name="user" id="search" placeholder="手机号码 / 账户名称">
+            <button class="btn btn-primary" id="search_btn">搜索</button>
+            <select name="status" id="" class="xiala">
+                <option value="0">请选择状态</option>
+                <option value="1">在线</option>
+                <option value="2">离线</option>
+                <option value="3">异常</option>
+                <option value="4">封停</option>
+                <option value="5">冻结</option>
+            </select>
+        </form>
     </div>
     <div class="table-responsive box">
         <table class="table table-bordered table-hover" id="myform">
@@ -198,7 +185,10 @@
                     <th>真实姓名</th>
                     <th>注册ip</th>
                     <th>登陆ip</th>
-                    <th>赏金余额</th>
+                    <th>赏金余额
+                        <font type = "shangjin" paixu = "shang" class="top"><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></font> 
+                        <font type = "shangjin" paixu = "xia" class="bot"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></font>
+                    </th>
                     <th>红包余额</th>
                     <th>状态</th>
                     <th>VIP</th>
@@ -266,13 +256,7 @@
 
     </table>
     <div id="test1"></div>
-    <!-- 手写的导航条 -->
-    <!-- <ul class="fenye">
-        <li class="jinyon"><button class="btn btn-default" disabled="disabled">上一页</button></li>
-        <li class="active">1</li>
-        <li>2</li>
-        <li><button class="btn btn-default">下一页</button></li>
-    </ul> -->
+   
     <script>
         var data = [{"id":1,"vip_name":"\u5c0f","task_number":22,"task_nat":22,"task_num":22},{"id":2,"vip_name":"\u554a","task_number":22,"task_nat":22,"task_num":22},{"id":3,"vip_name":"\u822a\u822a","task_number":2,"task_nat":2,"task_num":2},{"id":4,"vip_name":"\u54c8\u54c8\u54c8","task_number":3,"task_nat":3,"task_num":3},{"id":5,"vip_name":"\u65a4\u65a4\u8ba1\u8f83","task_number":3,"task_nat":3,"task_num":3},{"id":6,"vip_name":"\u54c8\u54c8\u54c8","task_number":null,"task_nat":null,"task_num":null},{"id":7,"vip_name":"3333","task_number":null,"task_nat":null,"task_num":null},{"id":8,"vip_name":"333","task_number":null,"task_nat":null,"task_num":null},{"id":9,"vip_name":"33","task_number":null,"task_nat":null,"task_num":null}];
         layui.use(['laypage', 'layer'], function () {
@@ -293,6 +277,7 @@
                             layui.each(thisData, function(index, item){
                                 console.log(index);
                                 console.log(item);
+                                if(item)
                                 
                                     html += "<tr><td>"+item.id+"</td><td>"+item.vip_name+"</td><td>"+item.task_number+"</td><td>"+item.task_nat+"</td><tr>";
                                 
@@ -305,15 +290,35 @@
                 
 
             });
+
+            $('#search_btn').click(function () {
+                var params = $("#shaixuan").serialize();
+                console.log(params.user);
+                var user = '196.168.101.1';
+                // IP正则
+                var regIp = /((25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d)))\.){3}(25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d)))/g
+                // 电话号码
+                var regIh = /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/;
+                if(params.user.search(regIp) !== -1){
+                    params.type = 'ip';
+                }else if(params.user.search(regIh) !== -1){
+                    params.type = 'phone';
+                }else{
+                    params.type = 'username';
+                }
+
+                $.ajax( {
+                    type : "POST",
+                    url : "RegisterAction.action",
+                    data : params,
+                    success : function(msg) {
+                        alert("success: " + msg);
+                    }
+                });
+                return false;
+            });
+
+            
         </script>
 </body>
 </html>
-
-<!-- function () {
-    var html;
-    data.forEach(function (item) {
-        html += "<tr><td>"+item.id+"</td><td>"+item.vip_name+"</td><td>"+item.task_number+"</td><td>"+item.task_nat+"</td><tr>";
-    });
-    return html;
-    console.log('ok')
-}(); -->
