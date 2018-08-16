@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,11 +8,12 @@
     <title>首页</title>
     <link rel="stylesheet" href="js/layui/css/layui.css">
     <link rel="stylesheet" href="css/main.css">
-     <script src="js/jquery-3.3.1.min.js"></script>
-     <script src="js/main.js"></script>
-     <script src="js/layui/layui.js"></script>
-     
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/layui/layui.js"></script>
+
 </head>
+
 <body>
     <!-- 顶部开始 -->
     <div class="container">
@@ -19,8 +21,11 @@
             <a href="index.html">优你赚后台</a>
         </div>
         <div class="left_open">
-            <i class="layui-icon layui-icon-spread-left"></i> 
+            <i class="layui-icon layui-icon-spread-left"></i>
         </div>
+        
+            
+      
         <ul class="layui-nav right" lay-filter="">
             <li class="layui-nav-item">
                 <a href="javascript:;">用户名</a>
@@ -31,8 +36,19 @@
                     </dd>
                 </dl>
             </li>
-            
+
         </ul>
+        <div class="box">
+            <p class="animate">
+                <!-- <a href="深拷贝.html">有一条未审核的内容</a> -->
+                <a href="javascript:;" class="cuo1">
+                    有一条未审核的内容
+                </a>
+                <a href="javascript:;" class="cuo2">
+                    有两条未审核的内容
+                </a>
+            </p>
+        </div>
         
     </div>
     <!-- 顶部结束 -->
@@ -40,112 +56,152 @@
     <!-- 左侧菜单开始 -->
     <ul class="layui-nav layui-nav-tree layui-nav-side left-nav" lay-filter="test">
         <div class="hide">
-        <li class="layui-nav-item">
-            <a href="javascript:;">会员管理</a>
-            <dl class="layui-nav-child">
-                <!-- <dd>
-                    <a href="javascript:;" _href = "table.html"><cite>会员账户管理</cite></a>
-                </dd> -->
-                <dd>
-                    <a href="javascript:;" _href = "reward.html"><cite>赏金流水查询</cite></a>
-                    
-                </dd>
-                <dd>
-                    <a href="javascript:;" _href = "redwater.html"><cite>红包流水查询</cite></a>
-                    
-                </dd>
-                <dd>
-                    <a href="javascript:;" _href = "taskmanage.html"><cite>会员任务管理</cite></a>
-                </dd>
-                
-            </dl>
-        </li>
-        <li class="layui-nav-item">
-            <a href="javascript:;">商家管理</a>
-            <dl class="layui-nav-child">
-                <dd>
-                    <a href="javascript:;" _href = "busaudit.html"><cite>商家审核</cite></a>
-                    
-                </dd>
-                <dd>
-                    <a href="javascript:;" _href = "bustask.html"><cite>商家任务</cite></a>
-                </dd>
-            </dl>
-        </li>
-        <li class="layui-nav-item">
-                
+            <li class="layui-nav-item">
+                <a href="javascript:;">会员管理</a>
+                <dl class="layui-nav-child">
+                   
                     <dd>
-                        <a href="javascript:;" _href = "question.html"><cite>问卷调查</cite></a>
+                        <a href="javascript:;" _href="sign.html">
+                            <cite>会员签到统计查询</cite>
+                        </a>
+
                     </dd>
-                
-        </li>
-        <li class="layui-nav-item">
-                
                     <dd>
-                        <a href="javascript:;" _href = "shangxiajia.html"><cite>上下家管理</cite></a>
+                        <a href="javascript:;" _href="redwater.html">
+                            <cite>红包流水查询</cite>
+                        </a>
+
                     </dd>
-                
-        </li>
-        <li class="layui-nav-item">
-            <a href="javascript:;">财务管理</a>
-            <dl class="layui-nav-child">
+                    <dd>
+                        <a href="javascript:;" _href="taskmanage.html">
+                            <cite>会员任务管理</cite>
+                        </a>
+                    </dd>
+
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">商家管理</a>
+                <dl class="layui-nav-child">
+                    <dd>
+                        <a href="javascript:;" _href="busaudit.html">
+                            <cite>商家审核</cite>
+                        </a>
+
+                    </dd>
+                    <dd>
+                        <a href="javascript:;" _href="bustask.html">
+                            <cite>商家任务</cite>
+                        </a>
+                    </dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+
                 <dd>
-                    <a href="javascript:;" _href = "shangjinyue.html"><cite>赏金余额调整</cite></a>
-                    
+                    <a href="javascript:;" _href="question.html">
+                        <cite>问卷调查</cite>
+                    </a>
                 </dd>
+
+            </li>
+            <li class="layui-nav-item">
+
                 <dd>
-                    <a href="javascript:;" _href = "hongbaoyue.html"><cite>红包余额调整</cite></a>
+                    <a href="javascript:;" _href="shangxiajia.html">
+                        <cite>上下家管理</cite>
+                    </a>
                 </dd>
-            </dl>
-        </li>
-        <li class="layui-nav-item">
-            <a href="javascript:;">抽奖专区</a>
-            <dl class="layui-nav-child">
-                <dd>
-                    <a href="javascript:;" _href = "jiangtongji.html"><cite>抽奖信息统计</cite></a>
-                    
+
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">财务管理</a>
+                <dl class="layui-nav-child">
+                    <dd>
+                        <a href="javascript:;" _href="shangjinyue.html">
+                            <cite>赏金余额调整</cite>
+                        </a>
+
+                    </dd>
+                    <dd>
+                        <a href="javascript:;" _href="hongbaoyue.html">
+                            <cite>红包余额调整</cite>
+                        </a>
+                    </dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">抽奖专区</a>
+                <dl class="layui-nav-child">
+                    <dd>
+                        <a href="javascript:;" _href="jiangtongji.html">
+                            <cite>抽奖信息统计</cite>
+                        </a>
+
+                    </dd>
+                    <dd>
+                        <a href="javascript:;" _href="jiangpingzhong.html">
+                            <cite>奖品品种</cite>
+                        </a>
+                    </dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">兑换专区</a>
+                <dl class="layui-nav-child">
+                    <dd>
+                        <a href="javascript:;" _href="duitongji.html">
+                            <cite>兑换信息统计</cite>
+                        </a>
+
+                    </dd>
+                    <dd>
+                        <a href="javascript:;" _href="duipingzhong.html">
+                            <cite>兑换品种</cite>
+                        </a>
+                    </dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="">任务资料管理</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="">显示栏设置</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="">所有活动管理</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="">全站公告</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="">试玩管理</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="">分享专区</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="">VIP系统</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="">在线调查</a>
+            </li>
+            <!-- 滚动条打开的页面 -->
+            <li class="layui-nav-item" style="visibility: hidden;position: absolute;top: 0px;">
+                <dd class="cuo1">
+                    <a href="javascript:;" _href="深拷贝.html">
+                        <cite>一条错误的信息</cite>
+                    </a>
                 </dd>
-                <dd>
-                    <a href="javascript:;" _href = "jiangpingzhong.html"><cite>奖品品种</cite></a>
+            </li>
+            <li class="layui-nav-item" style="visibility: hidden;position: absolute;top: 0px;">
+                <dd class="cuo2">
+                    <a href="javascript:;" _href="深拷贝.html">
+                        <cite>一条错误的信息</cite>
+                    </a>
                 </dd>
-            </dl>
-        </li>
-        <li class="layui-nav-item">
-            <a href="javascript:;">兑换专区</a>
-            <dl class="layui-nav-child">
-                <dd>
-                    <a href="javascript:;" _href = "duitongji.html"><cite>兑换信息统计</cite></a>
-                    
-                </dd>
-                <dd>
-                    <a href="javascript:;" _href = "duipingzhong.html"><cite>兑换品种</cite></a>
-                </dd>
-            </dl>
-        </li>
-        <li class="layui-nav-item">
-            <a href="">任务资料管理</a>
-        </li>
-        <li class="layui-nav-item">
-            <a href="">显示栏设置</a>
-        </li>
-        <li class="layui-nav-item">
-            <a href="">所有活动管理</a>
-        </li>
-        <li class="layui-nav-item">
-            <a href="">全站公告</a>
-        </li>
-        <li class="layui-nav-item">
-            <a href="">试玩管理</a>
-        </li>
-        <li class="layui-nav-item">
-            <a href="">分享专区</a>
-        </li>
-        <li class="layui-nav-item">
-            <a href="">VIP系统</a>
-        </li>
-        <li class="layui-nav-item">
-            <a href="">在线调查</a>
-        </li>
+            </li>
+            
         </div>
     </ul>
     <!-- 左侧菜单结束 -->
@@ -153,27 +209,28 @@
     <div class="page-content">
         <div class="layui-tab layui-tab-card" lay-allowClose="true" lay-filter="demo">
             <ul class="layui-tab-title">
-                <li class="layui-this" id="home"> <i class="layui-icon layui-icon-home"></i>会员账号管理</li>                
+                <li class="layui-this" id="home">
+                    <i class="layui-icon layui-icon-home"></i>会员账号管理</li>
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
                     <iframe tab-id="1" frameborder="0" src="table.html" scrolling="yes" class="x-iframe"></iframe>
-                </div>   
+                </div>
             </div>
         </div>
     </div>
     <!-- 右侧主体结束 -->
     <script>
         $(document).ready(function () {
-            
-            // 导入模块功能
-            layui.use(['form','element','layer'],
-            function() {
-                layer = layui.layer;
-                element = layui.element;
-            });
 
-             //触发事件
+            // 导入模块功能
+            layui.use(['form', 'element', 'layer'],
+                function () {
+                    layer = layui.layer;
+                    element = layui.element;
+                });
+
+            //触发事件
             var tab = {
                 tabAdd: function (title, url, id) {
                     //新增一个Tab项
@@ -195,14 +252,14 @@
                     element.tabChange('demo', id); //切换到：用户管理
                 }
             };
-                
+
             // 开关左侧导航条
             $('.container .left_open').click(function (event) {
                 if ($('.left-nav').css('left') == '0px') {
                     var a = $('.container .left_open').html('<i class="layui-icon layui-icon-shrink-right"></i>');
                     console.log(a)
                     $('.page-content').animate({ left: '0px' }, 200);
-                    $('.left-nav').animate({ left: '-221px' }, 200); 
+                    $('.left-nav').animate({ left: '-221px' }, 200);
                     $('.page-content-bg').hide();
                 } else {
                     $('.container .left_open').html('<i class="layui-icon layui-icon-spread-left"></i>');
@@ -217,32 +274,38 @@
 
             // 增加tab页面
             $('.layui-nav li dd').click(function () {
-                if($(this).children('.menu').length)
-                {
+                if ($(this).children('.menu').length) {
                     console.log('不跳转页面');
-                    
-                }else
-                {
+
+                } else {
                     var url = $(this).children('a').attr('_href');
                     var title = $(this).find('cite').html();
-                    var index  = $('.layui-nav li dd').index($(this));
-                    console.log(url,title,index);
+                    var index = $('.layui-nav li dd').index($(this));
+                    console.log(url, title, index);
 
-                    for (var i = 0; i <$('.x-iframe').length; i++) {
-                        if($('.x-iframe').eq(i).attr('tab-id')==index+1){
-                            console.log(2);
-                            tab.tabChange(index+1);
+                    for (var i = 0; i < $('.x-iframe').length; i++) {
+                        if ($('.x-iframe').eq(i).attr('tab-id') == index + 1) {
+                            tab.tabChange(index + 1);
                             event.stopPropagation();
                             return;
                         }
                     };
 
-                    tab.tabAdd(title,url,index+1);
-                    tab.tabChange(index+1);
+                    tab.tabAdd(title, url, index + 1);
+                    tab.tabChange(index + 1);
                 }
                 event.stopPropagation();
+            });
+
+            // 链接添加页面
+            $('.animate a').click(function () {
+                var clas = $(this).attr('class');
+                $('dd.'+clas).click();
             })
+
+
         })
     </script>
 </body>
+
 </html>

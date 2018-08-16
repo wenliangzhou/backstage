@@ -111,66 +111,15 @@
                 border-bottom: 1px solid#e6e6e6;
             }
         }
-        .lianjie{
-            color: red;
-        }
+        
     </style>
 </head>
 
-<script>
-    $(document).ready(function () {
-        
-            layui.use(['layer'], function () {
-                var layer = layui.layer;
-            });
-            // 下拉框监听
-            $('select').change(function () {
-                console.log(this.value+" "+this.id)
-            })
 
-        $('tbody').delegate('.green','click',function () {
-            var tr_id = $(this).attr("tr-id");
-            layer.open({
-                type: 2,
-                title: '详细信息',
-                maxmin: true,
-                shadeClose: true, //点击遮罩关闭层
-                area: ['80%', '520px'],
-                offset: '20px',
-                content: 'information.html'+"?id ="+ tr_id 
-            })
-            console.log(tr_id);
-        });
-
-        $('tbody').delegate('.bule','click',function () {
-            var tr_id = $(this).attr("tr-id");
-            layer.open({
-                type: 2,
-                title: '详细信息',
-                maxmin: true,
-                shadeClose: true, //点击遮罩关闭层
-                area: ['80%', '520px'],
-                offset: '20px',
-                content: 'edit.html'
-            })
-        });
-
-
-    })
-</script>
 <body>
     <div class="top">
         <form action="" id="shaixuan">
-            <input type="text" class="form-control" name="user" id="search" placeholder="手机号码 / 账户名称">
-            
-            <select name="status" id="" class="xiala">
-                <option value="0">请选择状态</option>
-                <option value="1">在线</option>
-                <option value="2">离线</option>
-                <option value="3">异常</option>
-                <option value="4">封停</option>
-                <option value="5">冻结</option>
-            </select>
+            <input type="text" class="form-control" name="user" id="search" placeholder=" 会员名称">
             <button class="btn btn-primary" id="search_btn">搜索</button>
         </form>
     </div>
@@ -179,74 +128,40 @@
             <thead>
                 <tr>
                     <th>会员ID</th>
-                    <th>账户名称</th>
-                    <th>手机号码</th>
-                    <th>邮箱</th>
-                    <th>真实姓名</th>
-                    <th>注册ip</th>
-                    <th>登陆ip</th>
-                    <th>赏金余额
-                        <font type = "shangjin" paixu = "shang" class="top"><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></font> 
-                        <font type = "shangjin" paixu = "xia" class="bot"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></font>
+                    <th>会员名称</th>
+                    <th>连续天数
+                        <font type = "lianxu" paixu = "shang" class="top"><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></font> 
+                        <font type = "lianxu" paixu = "xia" class="bot"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></font>
                     </th>
-                    <th>红包余额</th>
-                    <th>状态</th>
-                    <th>VIP</th>
-                    <th>操作</th>
+                    <th>周天数
+                        <font type = "week" paixu = "shang" class="top"><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></font> 
+                        <font type = "week" paixu = "xia" class="bot"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></font>
+                    </th>
+                    <th>月天数
+                        <font type = "month" paixu = "shang" class="top"><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></font> 
+                        <font type = "month" paixu = "xia" class="bot"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></font>
+                    </th>
+                    <th>补签的次数
+                        <font type = "buqian" paixu = "shang" class="top"><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></font> 
+                        <font type = "buqian" paixu = "xia" class="bot"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></font>
+                    </th>
+                    
+                    <th>总天数
+                        <font type = "sum" paixu = "shang" class="top"><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></font> 
+                        <font type = "sum" paixu = "xia" class="bot"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></font>
+                    </th>
+                    
                 </tr>
             </thead>
             <tbody id="tes">
                 <tr>
                     <td>10000</td>
                     <td class="green lianjie">小不点</td>
-                    <td>15072779728</td>
-                    <td>752758299@qq.com</td>
-                    <td>小王</td>
-                    <td>196.168.05.1</td>
-                    <td>196.168.05.15</td>
-                    <td>50</td>
-                    <td>60</td>
-                    <td class="state" >
-                        <select   id = 'user_0' value="0" class="form-control">
-                            <option value="0">在线</option>
-                            <option value="1">离线</option>
-                            <option value="2">异常</option>
-                            <option value="3">封停</option>
-                            <option value="4">冻结</option>
-                        </select>
-                    </td>
                     <td>2</td>
-                    <td>
-                        <button class="layui-btn layui-btn-xs green" id="sd" tr-id = "user_0">查看</button>
-                        <button class="layui-btn layui-btn-xs bule">编辑</button>
-                        <button class="layui-btn layui-btn-xs red" tr-id = "user_0">删除</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>10000</td>
-                    <td><a>小不点</a></td>
-                    <td>15072779728</td>
-                    <td>752758299@qq.com</td>
-                    <td>小王</td>
-                    <td>196.168.05.1</td>
-                    <td>196.168.05.15</td>
-                    <td>50</td>
-                    <td>60</td>
-                    <td class="state">
-                        <select  id = 'user_1' value="1" class="form-control">
-                            <option value="0">在线</option>
-                            <option value="1">离线</option>
-                            <option value="2">异常</option>
-                            <option value="3">封停</option>
-                            <option value="4">冻结</option>
-                        </select>
-                    </td>
+                    <td>30</td>
                     <td>2</td>
-                    <td>
-                        <button class="layui-btn layui-btn-xs green" tr-id = "user_1">查看</button>
-                        <button class="layui-btn layui-btn-xs bule">编辑</button>
-                        <button class="layui-btn layui-btn-xs red">删除</button>
-                    </td>
+                    <td>20</td>
+                    <td>2</td>   
                 </tr>
                 
             </tbody>
@@ -258,6 +173,20 @@
     <div id="test1"></div>
    
     <script>
+        // 名称打开页面
+        $('tbody').delegate('.green','click',function () {
+            var tr_id = $(this).attr("tr-id");
+            layer.open({
+                type: 2,
+                title: '详细信息',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area: ['80%', '520px'],
+                offset: '20px',
+                content: 'signdetail.html'
+            })
+        });
+
         var data = [{"id":1,"vip_name":"\u5c0f","task_number":22,"task_nat":22,"task_num":22},{"id":2,"vip_name":"\u554a","task_number":22,"task_nat":22,"task_num":22},{"id":3,"vip_name":"\u822a\u822a","task_number":2,"task_nat":2,"task_num":2},{"id":4,"vip_name":"\u54c8\u54c8\u54c8","task_number":3,"task_nat":3,"task_num":3},{"id":5,"vip_name":"\u65a4\u65a4\u8ba1\u8f83","task_number":3,"task_nat":3,"task_num":3},{"id":6,"vip_name":"\u54c8\u54c8\u54c8","task_number":null,"task_nat":null,"task_num":null},{"id":7,"vip_name":"3333","task_number":null,"task_nat":null,"task_num":null},{"id":8,"vip_name":"333","task_number":null,"task_nat":null,"task_num":null},{"id":9,"vip_name":"33","task_number":null,"task_nat":null,"task_num":null}];
         layui.use(['laypage', 'layer'], function () {
                 var laypage = layui.laypage

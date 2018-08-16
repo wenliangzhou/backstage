@@ -73,12 +73,12 @@ p{
 
 /* 下拉 */
 .xiala{
-    
+    margin-left: 10px;
     padding: 6px 20px;
     padding-right: 50px !important;
     vertical-align: bottom;
     display: inline-block;
-    height: 36px;
+    height: 34.5px;
     padding: 6px 12px;
     font-size: 14px;
     line-height: 1.42857143;
@@ -99,4 +99,13 @@ p{
     -moz-box-shadow: 2px 2px 13px -5px blue;
     -webkit-box-shadow: 2px 2px 13px -5px blue;
     box-shadow: 2px 2px 13px -5px blue;
+}
+
+/* 链接样式 */
+.xian{
+    color: red;
+
+}
+.lianjie{
+    color: red;
 }

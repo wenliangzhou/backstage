@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <script>
+        var a = [2, { name: "你的名字", age: [2, 3] }];
+
+        function fuzhi(a) {
+            var b = Array.isArray(a) ? [] : {};
+            var c = Object.keys(a)
+            c.forEach(function (key) {
+                if (a[key] instanceof Object) {
+                    console.log('ok');
+                    b[key] = fuzhi(a[key]);
+                } else {
+                    b[key] = a[key];
+                }
+            })
+            return b;
+        }
+        var b = fuzhi(a);
+    </script> -->
+    <script>
+        function deepClone(obj) {
+            let objClone = Array.isArray(obj) ? [] : {};
+            if (obj && typeof obj === "object") {
+                for (key in obj) {
+                    if (obj.hasOwnProperty(key)) {
+                        //判断ojb子元素是否为对象，如果是，递归复制
+                        if (obj[key] && typeof obj[key] === "object") {
+                            objClone[key] = deepClone(obj[key]);
+                        } else {
+                            //如果不是，简单复制
+                            objClone[key] = obj[key];
+                        }
+                    }
+                }
+            }
+            return objClone;
+        }
+        let a = [1, 2, 3, 4],
+            b = deepClone(a);
+        a[0] = 2;
+        console.log(a, b);
+    </script>
+</body>
+
+</html>
+var x = [2,{name:"你的名字",age:[2,3]}];

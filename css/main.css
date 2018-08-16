@@ -1,8 +1,14 @@
 .container {
     width: 100%;
-    height: 45px;
+    
     background-color: rgb(34, 34, 34);
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+}
+.container::after{
+    content: "";
+    display: block;
+    clear: both;
 }
 .container dd a{
         color: rgb(34, 34, 34) !important;  
@@ -121,4 +127,101 @@ a {
     height: 3px;
     border-radius: 0;
     background-color: #292B34;
+}
+/* 顶部公告样式 */
+
+.container .box {
+    width: 400px;
+    margin-left: 60px;
+    height: 42px;
+    /* border: 1px solid #ff6700; */
+    overflow: hidden;
+    float: right;
+   
+}
+.container .animate a{
+    color: red;
+    font-size: 13px;
+    line-height: 42px;
+    padding-left: 10px;
+}
+.container .animate {
+    font-size: 12px;
+    display: inline-block;
+    white-space: nowrap;
+    animation: 15s wordsLoop linear infinite normal;
+    box-sizing: content-box;
+    
+}
+
+@keyframes wordsLoop {
+    0% {
+        transform: translateX(400px);
+        -webkit-transform: translateX(400px);
+    }
+    100% {
+        transform: translateX(-100%);
+        -webkit-transform: translateX(-100%);
+    }
+}
+
+@-webkit-keyframes wordsLoop {
+    0% {
+        transform: translateX(400px);
+        -webkit-transform: translateX(400px);
+    }
+    100% {
+        transform: translateX(-100%);
+        -webkit-transform: translateX(-100%);
+    }
+}
+.container .animate:hover {
+    animation-play-state: paused
+}
+/* 手机兼容 */
+@media screen and (max-width: 450px) {
+    .layui-nav-side{
+        top: 91px;
+        width: 221px;
+        border-radius: 0px;
+    }
+    .page-content {
+        position: absolute;
+        top: 91px;
+        right: 0px;
+        bottom: 0px;
+        left: 221px;
+        z-index: 1;
+        overflow: hidden;
+    }
+    .container .box {
+        width: 210px;
+        margin-left: 0px;
+    }
+    .layui-nav{
+        padding: 0px !important;
+        padding-right: 20px !important;
+    }
+
+    @keyframes wordsLoop {
+        0% {
+            transform: translateX(200px);
+            -webkit-transform: translateX(200px);
+        }
+        100% {
+            transform: translateX(-100%);
+            -webkit-transform: translateX(-100%);
+        }
+    }
+    
+    @-webkit-keyframes wordsLoop {
+        0% {
+            transform: translateX(200px);
+            -webkit-transform: translateX(200px);
+        }
+        100% {
+            transform: translateX(-100%);
+            -webkit-transform: translateX(-100%);
+        }
+    }
 }
