@@ -108,4 +108,13 @@ p{
 }
 .lianjie{
     color: red;
+    font-style:italic
+}
+
+.nothing{
+    text-align: center;
+    color: rgb(155,155,155);
+    height: 100px;
+    line-height: 120px;
+    font-size: 20px;
 }

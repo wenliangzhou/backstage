@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>冻结详情</title>
+    <link rel="stylesheet" href="js/layui/css/layui.css">
+    <link rel="stylesheet" href="js/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/biaoge.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/layui/layui.js"></script>
+    <script src="js/main.js"></script>
+    <style>
+        html,
+        body {
+            height: 100%;
+
+        }
+
+        .red {
+            background: red;
+        }
+
+        .bule {
+            background: blueviolet;
+        }
+
+        #search {
+            width: 10%;
+            min-width: 200px;
+        }
+
+        .top {
+            padding: 20px;
+            /* height: 20%; */
+            min-height: 80px;
+            box-sizing: border-box;
+            /* margin-bottom: -50px; */
+        }
+
+        .top button,
+        input {
+            display: inline-block !important;
+        }
+
+        .top #search_btn {
+            margin-left: 10px;
+            margin-top: -2px;
+        }
+
+        .box th,
+        td {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            border-color: #e6e6e6 !important;
+            color: #666;
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 10px 20px !important;
+        }
+
+        .box th {
+            font-weight: normal !important;
+            background: rgb(242, 242, 242);
+            color: #666;
+        }
+
+        .box2 {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .state {
+            overflow: visible;
+            min-width: 93px;
+        }
+
+        .state input {
+            height: 25px !important;
+            width: 75px !important;
+        }
+
+        .layui-select-title {
+            position: relative;
+            max-width: 73px !important;
+        }
+
+        .layui-form-select .layui-edge {
+
+            right: 10% !important;
+        }
+
+        .table {
+            margin-bottom: 0px;
+        }
+
+        tbody .form-control {
+            display: block;
+            width: 100%;
+            height: auto;
+            padding: 2px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            box-sizing: content-box;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        }
+
+        @media screen and (max-width: 450px) {
+            .layui-layer-iframe {
+                width: 80% !important;
+            }
+            .box {
+                height: auto;
+                box-sizing: border-box;
+            }
+            tbody tr:nth-last-child(1) {
+                border-bottom: 1px solid#e6e6e6;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="top">
+        <form action="" id="shaixuan">
+            <input type="text" class="form-control" name="user" id="search" placeholder="冻结任务标题">
+            <button class="btn btn-primary" id="search_btn">搜索</button>
+        </form>
+    </div>
+    <div class="table-responsive box">
+        <table class="table table-bordered table-hover" id="myform">
+            <thead>
+                <tr>
+                    <th>商家名称</th>
+                    <th>冻结金额
+                        <font type="lianxu" paixu="shang" class="top">
+                            <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                        </font>
+                        <font type="lianxu" paixu="xia" class="bot">
+                            <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                        </font>
+                    </th>
+                    <th>冻结时间
+                        <font type="week" paixu="shang" class="top">
+                            <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                        </font>
+                        <font type="week" paixu="xia" class="bot">
+                            <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                        </font>
+                    </th>
+                    <th>
+                        冻结任务标题
+                    </th>
+                    <th>
+                        冻结剩余金额
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="tes">
+                <tr>
+                    <td>百度</td>
+                    <td>800</td>
+                    <td>2018年8月17日</td>
+                    <td>百度知道</td>
+                    <td>2000</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <table id="tess">
+
+    </table>
+    <div id="test1"></div>
+
+    <script>
+
+        var data = [{ "id": 1, "vip_name": "\u5c0f", "task_number": 22, "task_nat": 22, "task_num": 22 }, { "id": 2, "vip_name": "\u554a", "task_number": 22, "task_nat": 22, "task_num": 22 }, { "id": 3, "vip_name": "\u822a\u822a", "task_number": 2, "task_nat": 2, "task_num": 2 }, { "id": 4, "vip_name": "\u54c8\u54c8\u54c8", "task_number": 3, "task_nat": 3, "task_num": 3 }, { "id": 5, "vip_name": "\u65a4\u65a4\u8ba1\u8f83", "task_number": 3, "task_nat": 3, "task_num": 3 }, { "id": 6, "vip_name": "\u54c8\u54c8\u54c8", "task_number": null, "task_nat": null, "task_num": null }, { "id": 7, "vip_name": "3333", "task_number": null, "task_nat": null, "task_num": null }, { "id": 8, "vip_name": "333", "task_number": null, "task_nat": null, "task_num": null }, { "id": 9, "vip_name": "33", "task_number": null, "task_nat": null, "task_num": null }];
+        layui.use(['laypage', 'layer'], function () {
+            var laypage = layui.laypage
+                , layer = layui.layer;
+
+            //执行一个laypage实例
+            laypage.render({
+                elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
+                , count: data.length //数据总数，从服务端得到
+                , limit: 2
+                , jump: function (obj) {
+                    //模拟渲染
+                    var html = "";
+                    document.getElementById('tess').innerHTML = function () {
+                        var thisData = data.concat().splice(obj.curr * obj.limit - obj.limit, obj.limit);
+
+                        layui.each(thisData, function (index, item) {
+                            console.log(index);
+                            console.log(item);
+                            if (item)
+
+                                html += "<tr><td>" + item.id + "</td><td>" + item.vip_name + "</td><td>" + item.task_number + "</td><td>" + item.task_nat + "</td><tr>";
+
+                        });
+                        console.log(html)
+                        return html;
+                    }();
+                }
+            });
+
+
+        });
+
+        $('#search_btn,font').click(function () {
+            $('font').removeClass('active');
+            var params = $("#shaixuan").serialize();
+            if ($(this)[0].id !== "search_btn") {
+                params += "&paixu=" + $(this).attr('type');
+                params += "&fangshi=" + $(this).attr('paixu');
+            }
+
+            var jieguo = $("#search").val();
+            // 不为空正则
+            var regname = /^\s*$/g;
+
+            if (params.search(regname) !== -1) {
+                params += "&type=name";
+            }
+            console.log(params);
+
+            $.ajax({
+                type: "POST",
+                url: "{:url('user/search')}",
+                data: params,
+                success: function (msg) {
+                    if (msg == 1) {
+                        $('#tess').html('没有相关信息');
+                    } else {
+                        xr(msg);
+                    }
+
+                }
+                , dataType: 'json'
+            });
+            return false;
+        });
+
+
+    </script>
+</body>
+
+</html>
