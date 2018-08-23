@@ -138,6 +138,7 @@
         <form action="" id="shaixuan">
             <input type="text" class="form-control" name="user" id="search" placeholder="会员名称">
             <button class="btn btn-primary" id="search_btn">搜索</button>
+            <button type="button" class="btn btn-primary" id="tianjia" tr-id = "tianjia">添加加扣款</button>
         </form>
     </div>
     <div class="table-responsive box">
@@ -146,12 +147,11 @@
                 <tr>
                     <th>会员ID</th>
                     <th>会员名称</th>
-                    <th>加扣款赏金</th>
-                    <th>APP上架</th>
-                    <th>SEO</th>
-                    <th>网站定制</th>
-                    <th>新媒体</th>
-                    <th>备注</th>
+                    <th>加扣类型</th>
+                    <th>金币类型</th>
+                    <th>金额数量</th>
+                    <th>项目类型</th>
+                    <th>原因</th>
                     <th>提交时间</th>
                     <th>操作人员</th>
                     <th>操作</th>
@@ -162,12 +162,11 @@
                     <td>1</td>
                     <td>luna</td>
                     <td>加款</td>
-                    <td>XXX</td>
-                    <td>100000</td>
-                    <td>XXX</td>
-                    <td>XXXX</td>
-                    <td>其他奖赏</td>
-                    <td>2018年8月18日</td>
+                    <td>红包</td>
+                    <td>100</td>
+                    <td>欢乐斗地主</td>
+                    <td>中奖加款</td>
+                    <td>2018年8月22日</td>
                     <td>财务小李</td>
                     <td>
                         <button class="layui-btn layui-btn-xs bule">编辑</button>
@@ -182,43 +181,16 @@
     <div id="test1"></div>
 
     <script>
-
-        var data = [{ "id": 1, "vip_name": "\u5c0f", "task_number": 22, "task_nat": 22, "task_num": 22 }, { "id": 2, "vip_name": "\u554a", "task_number": 22, "task_nat": 22, "task_num": 22 }, { "id": 3, "vip_name": "\u822a\u822a", "task_number": 2, "task_nat": 2, "task_num": 2 }, { "id": 4, "vip_name": "\u54c8\u54c8\u54c8", "task_number": 3, "task_nat": 3, "task_num": 3 }, { "id": 5, "vip_name": "\u65a4\u65a4\u8ba1\u8f83", "task_number": 3, "task_nat": 3, "task_num": 3 }, { "id": 6, "vip_name": "\u54c8\u54c8\u54c8", "task_number": null, "task_nat": null, "task_num": null }, { "id": 7, "vip_name": "3333", "task_number": null, "task_nat": null, "task_num": null }, { "id": 8, "vip_name": "333", "task_number": null, "task_nat": null, "task_num": null }, { "id": 9, "vip_name": "33", "task_number": null, "task_nat": null, "task_num": null }];
+        // 初始化弹框
+        var url = "{:url('Bustasklist/bustasklist')}";
         layui.use(['laypage', 'layer'], function () {
-            var laypage = layui.laypage
+            laypage = layui.laypage
                 , layer = layui.layer;
-
-            //执行一个laypage实例
-            laypage.render({
-                elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
-                , count: data.length //数据总数，从服务端得到
-                , limit: 2
-                ,layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
-                , jump: function (obj) {
-                    //模拟渲染
-                    var html = "";
-                    document.getElementById('tess').innerHTML = function () {
-                        var thisData = data.concat().splice(obj.curr * obj.limit - obj.limit, obj.limit);
-
-                        layui.each(thisData, function (index, item) {
-                            console.log(index);
-                            console.log(item);
-                            if (item)
-
-                                html += "<tr><td>" + item.id + "</td><td>" + item.vip_name + "</td><td>" + item.task_number + "</td><td>" + item.task_nat + "</td><tr>";
-
-                        });
-                        console.log(html)
-                        return html;
-                    }();
-                }
-            });
-
-
+            demo(url, xr);
         });
 
         // 打开编辑弹框
-        $('tbody').delegate('.bule','click',function () {
+        $('tbody').delegate('.bule', 'click', function () {
             var tr_id = $(this).attr("tr-id");
             layer.open({
                 type: 2,
@@ -231,38 +203,64 @@
             })
         });
 
+        // 打开编辑弹框
+        $('body').delegate('#tianjia', 'click', function () {
+            var tr_id = $(this).attr("tr-id");
+            layer.open({
+                type: 2,
+                title: '编辑信息',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area: ['80%', '520px'],
+                offset: '20px',
+                content: 'jiacunedit.html'
+            });
+            console.log(tr_id);
+        });
+
+
+        // 渲染拼接方法
+        function xr(res) {
+            // 再这里渲染 
+            var html = "";
+            var end = res['list'].length;
+            for (var i = 0; i < end; i++) {
+                html += "<tr>";
+                html += "<td>" + res['list'][i]['id'] + "</td>";
+                html += "<td>" + res['list'][i]['name'] + "</td>";
+                html += "<td>" + res['list'][i]['money'] + "</td>";
+                html += "<td>" + res['list'][i]['man_number'] + "</td>";
+                html += "<td>" + 1 + "</td>";
+                html += "</tr>";
+            }
+            $('#tes').html(html);
+        }
+
+
         $('#search_btn,font').click(function () {
             $('font').removeClass('active');
-            var params = $("#shaixuan").serialize();
+            var params = $("#shaixuan").serializeArray();
+            var data = zhuan(params);
             if ($(this)[0].id !== "search_btn") {
-                params += "&paixu=" + $(this).attr('type');
-                params += "&fangshi=" + $(this).attr('paixu');
+                data.paixu = $(this).attr('type');
+                data.fangshi = $(this).attr('paixu');
             }
 
             var jieguo = $("#search").val();
             // 不为空正则
             var regname = /^\s*$/g;
-
-            if (params.search(regname) !== -1) {
-                params += "&type=name";
+            if (jieguo.search(regname) == -1) {
+                data.type = "name";
             }
-            console.log(params);
 
-            $.ajax({
-                type: "POST",
-                url: "{:url('user/search')}",
-                data: params,
-                success: function (msg) {
-                    if(!msg[0]){
-                        xr(msg)  
-                        $("#test1").html('<div class = "nothing">没有相关内容!!!</div>')
-                    }else{
-                        xr(msg);
-                    }
-                }
-                , dataType: 'json'
-            });
+            demo(url, xr, undefined, undefined, data)
+
             return false;
+        });
+
+        $('#status').change(function () {
+
+            $('#search_btn').click();
         });
 
 
