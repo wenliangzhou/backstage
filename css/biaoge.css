@@ -70,7 +70,9 @@ p{
 .greenn{
     background-color: green;
 }
-
+.box th font {
+    margin-left: 8px;  
+}
 /* 下拉 */
 .xiala{
     margin-left: 10px;
@@ -118,3 +120,13 @@ p{
     line-height: 120px;
     font-size: 20px;
 }
+/* 开关样式 */
+.layui-form-switch{
+    min-width: 65px;
+}
+.kaiguan{
+    visibility: hidden;
+    position: absolute;
+}
+
+

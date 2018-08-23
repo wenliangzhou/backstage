@@ -137,6 +137,12 @@
     <div class="top">
         <form action="" id="shaixuan">
             <input type="text" class="form-control" name="user" id="search" placeholder="会员名称">
+
+            <select name="status" id="status" class="xiala">
+                <option value="0">请选择状态</option>
+                <option value="1">通过</option>
+                <option value="2">驳回</option>
+            </select>
             <button class="btn btn-primary" id="search_btn">搜索</button>
         </form>
     </div>
@@ -146,7 +152,14 @@
                 <tr>
                     <th>会员ID</th>
                     <th>会员名称</th>
-                    <th>VIP</th>
+                    <th>VIP
+                        <font type="lianxu" paixu="shang" class="top">
+                            <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                        </font>
+                        <font type="lianxu" paixu="xia" class="bot">
+                            <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                        </font>
+                    </th>
                     <th>提现单号</th>
                     <th>提现前赏金</th>
                     <th>提款金额(元)</th>
@@ -178,7 +191,13 @@
                     <td>小王</td>
                     <td>南山支行</td>
                     <td>2018年8月18日</td>
-                    <td>通过</td>
+                    <td>
+                        <select id='user_1' value="1" class="form-control">
+                            <option value="0">未审核</option>
+                            <option value="1">通过</option>
+                            <option value="2">驳回</option>
+                        </select>
+                    </td>
                     <td>xxx</td>
                     <td>2018年8月18日</td>
                     <td>客服小李</td>
@@ -260,8 +279,12 @@
             });
             return false;
         });
-
-
+        
+        // 通过，未审核分，驳回 分类监听
+        $('#status').change(function () {
+            $("#search_btn").click();
+        });
+        // 再写个下拉框监听 
     </script>
 </body>
 

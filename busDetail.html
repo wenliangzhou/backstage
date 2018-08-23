@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>商家详情</title>
+    <link rel="stylesheet" href="js/layui/css/layui.css">
+    <link rel="stylesheet" href="js/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/biaoge.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/layui/layui.js"></script>
+    <script src="js/main.js"></script>
+    <style>
+        .container div span {
+            display: inline-block;
+            vertical-align: top;
+            margin: 10px;
+        }
+
+        img {
+            width: 150px;
+        }
+
+        div span:nth-child(1) {
+            min-width: 30%;
+            text-align: right;
+            margin-right: 20px;
+        }
+
+        div {
+            border-bottom: solid 1px rgb(241, 241, 241);
+        }
+        .container,div:last-child{
+            border: none;
+        }
+        div:last-child{
+            text-align: center;
+        }
+        div:last-child button{
+            margin: 20px 30px;
+        }
+        #why{
+            width: 100%;
+        }
+        .layui-layer-content{
+            text-align: center;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="container" id="layer-photos-demo" class="layer-photos-demo">
+        <div class="col-md-6">
+            <span>任务类型:</span>
+            <span>SEO</span>
+        </div>
+        <div class="col-md-6">
+            <span>详细内容:</span>
+            <span>南山XXX</span>
+        </div>
+        <div class="col-md-6">
+            <span>赏金额度:</span>
+            <span>50</span>
+        </div>
+        <div class="col-md-6">
+            <span>人数:</span>
+            <span>51</span>
+        </div>
+        <div class="col-md-6">
+            <span>时间:</span>
+            <span>2018年8月21日</span>
+        </div>
+        <div class="col-md-6">
+            <span>文案:</span>
+            <span>XXX</span>
+        </div>
+       
+        <div class="col-md-6">
+            <span>备注:</span>
+            <span >
+                <img src="img/zhizhao.png" alt="">
+            </span>
+        </div>
+        <div class="col-md-6">
+            <span>法人身份证正面:</span>
+            <span>
+                <img src="img/zhizhao.png" alt="">
+            </span>
+        </div>
+        <div class="col-md-6" style="border: none">
+            <span>法人身份证反面:</span>
+            <span>
+                <img src="img/zhizhao.png" alt="">
+            </span>
+        </div>
+        <div class="col-md-12">
+            <button class="layui-btn">通过</button>
+            <button id="refuse" class="layui-btn layui-btn-danger">拒绝</button>
+        </div>
+    </div>
+
+    <script>
+        var layer;
+        layui.use('layer', function () {
+            
+        });
+        
+    </script>
+    <script>
+        
+        $(document).ready(function () {
+            var layer;
+            layui.use(['layer'], function () {
+                    layer = layui.layer;
+                
+            });
+
+            // 拒绝弹出层
+            $('#refuse').click(function () {
+                var this_ = this;
+                layer.open({
+                    shade: 0
+                    ,title:'拒绝原因'
+                    ,content: '<textarea id="why" autofocus placeholder="填写拒绝原因" rows="3"></textarea>'
+                    ,btn: ['确定', '取消']
+                    ,yes: function(index, layero){
+                        //按钮【按钮一】的回调
+                        // 获取输入的原因值
+                        var reason = $('#why').val();
+                        console.log($('#why').val());
+                        layer.close(index);
+                        // 禁用按钮
+                        $(this_).addClass("layui-btn-disabled");
+                        $(this_).attr("disabled",true);
+                        //发送ajax
+                        
+                        layer.msg('ok');
+                    }
+                    ,btn2: function(index, layero){
+                        //按钮【按钮二】的回调
+                        
+                        layer.msg('你取消了操作');
+                    }
+                    ,cancel: function(){ 
+                        //右上角关闭回调
+                        
+                        //return false 开启该代码可禁止点击该按钮关闭
+                    }
+                }); 
+            });
+            // 保存   发送数据
+            $("#submit").click(function () {
+                var a = $('#sex').val();
+                setTimeout(function(){
+                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                    parent.layer.close(index); //再执行关闭 
+                },1000);
+                $(this).addClass("layui-btn-disabled");
+                $(this).attr("disabled",true);
+
+                // 发送ajax
+                
+            })
+        })
+    </script>
+</body>
+
+</html>

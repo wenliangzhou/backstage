@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>会员赏金提现</title>
+    <title>会员红包收入明细</title>
     <link rel="stylesheet" href="js/layui/css/layui.css">
     <link rel="stylesheet" href="js/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/biaoge.css">
@@ -129,11 +129,6 @@
                 border-bottom: 1px solid#e6e6e6;
             }
         }
-
-        td select{
-            width: 70px !important;
-        }
-       
     </style>
 </head>
 
@@ -141,13 +136,7 @@
 <body>
     <div class="top">
         <form action="" id="shaixuan">
-            <input type="text" class="form-control" name="user" id="search" placeholder="会员名称">
-
-            <select name="status" id="status" class="xiala">
-                <option value="0">请选择状态</option>
-                <option value="1">通过</option>
-                <option value="2">驳回</option>
-            </select>
+            <input type="text" class="form-control" name="user" id="search" placeholder="收入任务标题">
             <button class="btn btn-primary" id="search_btn">搜索</button>
         </form>
     </div>
@@ -157,7 +146,7 @@
                 <tr>
                     <th>会员ID</th>
                     <th>会员名称</th>
-                    <th>VIP
+                    <th>收入红包
                         <font type="lianxu" paixu="shang" class="top">
                             <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
                         </font>
@@ -165,55 +154,26 @@
                             <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
                         </font>
                     </th>
-                    <th>提现单号</th>
-                    <th>提现前赏金</th>
-                    <th>提现后赏金</th>
-                    <th>提款金额(元)</th>
-                    <th>手续费(2%)</th>
-                    <th>出款金额(元)</th>
-
-                    <th>出款金额</th>
-
-                    <th>开户行</th>
-                    <th>银行卡号</th>
-                    <th>开户人</th>
-                    <th>开户地址</th>
-                    <th>申请时间</th>
-                    <th>审批结果</th>
-                    <th>审批信息</th>
-                    <th>审批通过时间</th>
-                    <th>操作人</th>
+                    <th>收入时间
+                        <font type="week" paixu="shang" class="top">
+                            <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                        </font>
+                        <font type="week" paixu="xia" class="bot">
+                            <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                        </font>
+                    </th>
+                    <th>
+                        收入任务标题
+                    </th>
                 </tr>
             </thead>
             <tbody id="tes">
                 <tr>
                     <td>1</td>
                     <td>luna</td>
-                    <td>
-                        vip4
-                    </td>
-                    <td>26515111</td>
-                    <td>100000</td>
-                    <td>100元</td>
-                    <td>2</td>
-                    <td>98</td>
-                    <td>0</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <select id='user_1' value="1" class="form-control">
-                            <option value="0">未审核</option>
-                            <option value="1">通过</option>
-                            <option value="2">驳回</option>
-                        </select>
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>800</td>
+                    <td>2018年8月17日</td>
+                    <td>百度知道</td>
                 </tr>
             </tbody>
         </table>
@@ -225,44 +185,40 @@
 
     <script>
 
-        var data = [{ "id": 1, "vip_name": "\u5c0f", "task_number": 22, "task_nat": 22, "task_num": 22 }, { "id": 2, "vip_name": "\u554a", "task_number": 22, "task_nat": 22, "task_num": 22 }, { "id": 3, "vip_name": "\u822a\u822a", "task_number": 2, "task_nat": 2, "task_num": 2 }, { "id": 4, "vip_name": "\u54c8\u54c8\u54c8", "task_number": 3, "task_nat": 3, "task_num": 3 }, { "id": 5, "vip_name": "\u65a4\u65a4\u8ba1\u8f83", "task_number": 3, "task_nat": 3, "task_num": 3 }, { "id": 6, "vip_name": "\u54c8\u54c8\u54c8", "task_number": null, "task_nat": null, "task_num": null }, { "id": 7, "vip_name": "3333", "task_number": null, "task_nat": null, "task_num": null }, { "id": 8, "vip_name": "333", "task_number": null, "task_nat": null, "task_num": null }, { "id": 9, "vip_name": "33", "task_number": null, "task_nat": null, "task_num": null }];
-        layui.use(['laypage', 'form', 'layer'], function () {
+        layui.use(['laypage', 'layer'], function () {
             var laypage = layui.laypage
-                , layer = layui.layer
-                , form = layui.form;
-
-            //执行一个laypage实例
-            laypage.render({
-                elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
-                , count: data.length //数据总数，从服务端得到
-                , limit: 2
-                , layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
-                , jump: function (obj) {
-                    //模拟渲染
-                    var html = "";
-                    document.getElementById('tess').innerHTML = function () {
-                        var thisData = data.concat().splice(obj.curr * obj.limit - obj.limit, obj.limit);
-
-                        layui.each(thisData, function (index, item) {
-                            console.log(index);
-                            console.log(item);
-                            if (item)
-
-                                html += "<tr><td>" + item.id + "</td><td>" + item.vip_name + "</td><td>" + item.task_number + "</td><td>" + item.task_nat + "</td><tr>";
-
-                        });
-                        console.log(html)
-                        return html;
-                    }();
-                }
-            });
-
-
+                , layer = layui.layer;
         });
+        
+
+        function demo(curr,limit,data="") {
+                $.getJSON('test/demo1.json', {
+                    page: curr || 1 //向服务端传的参数，此处只是演示
+                    ,limit:limit || 5
+                    ,can:data
+                }, function (res) {
+                    // 再这里渲染
+                    console.log(res);
+                    //显示分页
+                    laypage({
+                        elem: 'test1', //容器。值支持id名、原生dom对象，jquery对象。【如该容器为】：<div id="page1"></div>
+                        count: data.length,  //通过后台拿到的总页数
+                        curr: curr || 1, //当前页
+                        jump: function (obj, first) { //触发分页后的回调
+                            if (!first) { //点击跳页触发函数自身，并传递当前页：obj.curr
+                                demo(obj.curr,obj.limit,data);
+                            }
+                        }
+                    });
+                });
+            };
+            
+            //运行
+            demo();
 
         $('#search_btn,font').click(function () {
             $('font').removeClass('active');
-            var params = $("#shaixuan").serialize();
+            var params = $("#shaixuan").serializeArray();
             if ($(this)[0].id !== "search_btn") {
                 params += "&paixu=" + $(this).attr('type');
                 params += "&fangshi=" + $(this).attr('paixu');
@@ -277,30 +233,11 @@
             }
             console.log(params);
 
-            $.ajax({
-                type: "POST",
-                url: "{:url('user/search')}",
-                data: params,
-                success: function (msg) {
-                    if (!msg[0]) {
-                        xr(msg)
-                        $("#test1").html('<div class = "nothing">没有相关内容!!!</div>')
-                    } else {
-                        xr(msg);
-                    }
-                }
-                , dataType: 'json'
-            });
+            demo(undefined,undefined,params)
             return false;
         });
 
 
-        // 通过，未审核分，驳回 分类监听
-        $('#status').change(function () {
-            $("#search_btn").click();
-        });
-
-        // 再写个下拉框监听
     </script>
 </body>
 
