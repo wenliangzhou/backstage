@@ -74,8 +74,8 @@
          #money{
              position: relative;
          }
-         #money::after{
-             content: '元';
+         #money[data-danwei]::after{
+             content: attr(data-danwei);
              display: inline-block;
              position: absolute;
              top: 0px;
@@ -118,7 +118,7 @@
                 <div class="col-md-3 col-sm-3 col-xs-12 biaoti">
                     金额数量 :
                 </div>
-                <div class="col-md-8 col-sm-8 col-xs-12" id="money">
+                <div class="col-md-8 col-sm-8 col-xs-12" id="money" data-danwei="元">
                     <input type="text" class="form-control" id="" placeholder="金额数量">
                 </div>
             </div>
@@ -141,10 +141,10 @@
                 </div>
                 <div class="col-md-8 col-sm-8 col-xs-12">
                     <label class="radio-inline">
-                        <input type="radio" name="jinbiType" id="inlineRadio1" value="option1"> 赏金
+                        <input type="radio" name="jinbiType" id="inlineRadio1" checked="checked" value="1"> 红包
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="jinbiType" id="inlineRadio2" value="option2"> 红包
+                        <input type="radio" name="jinbiType" id="inlineRadio2"  value="2"> 赏金
                     </label>
                 </div>
             </div>
@@ -172,7 +172,17 @@
                 
                 // ajax发送数据
                               
-            })
+            });
+
+            // radio变换
+            $('input[type=radio][name=jinbiType]').change(function () {
+                if (this.value == '1') {
+                    $('#money').attr('data-danwei','元');
+                }
+                else if (this.value == '2') {
+                    $('#money').attr('data-danwei','M')
+                }
+            });
         });
     </script>
 </body>
