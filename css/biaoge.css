@@ -1,6 +1,6 @@
-html,body{
+/* html,body{
     height: 100%;
-}
+} */
 .red{
     background: red;
 }
@@ -128,5 +128,7 @@ p{
     visibility: hidden;
     position: absolute;
 }
+/* 超出省略号 */
+/* .shenglue{ text-overflow:ellipsis; white-space: space nowrap !important; overflow:hidden; } */
 
 

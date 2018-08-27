@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>加存款</title>
+    <title>私信</title>
     <link rel="stylesheet" href="js/layui/css/layui.css">
     <link rel="stylesheet" href="js/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/biaoge.css">
@@ -117,8 +117,11 @@
             transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
         }
 
-        @media screen and (max-width: 450px) {
-            .layui-layer-iframe {
+        @media (max-width: 991px){ 
+            
+        }
+       @media (max-width: 767px){ 
+        .layui-layer-iframe {
                 width: 80% !important;
             }
             .box {
@@ -129,48 +132,47 @@
                 border-bottom: 1px solid#e6e6e6;
             }
         }
+        .content-box{
+            max-width: 300px;
+            /* min-width: 400px; */
+        }
+        
     </style>
 </head>
 
 
 <body>
-    <div class="top">
-        <form action="" id="shaixuan">
-            <input type="text" class="form-control" name="user" id="search" placeholder="会员名称">
-            <button class="btn btn-primary" id="search_btn">搜索</button>
-            <button type="button" class="btn btn-primary" id="tianjia" tr-id = "tianjia">添加加扣款</button>
-        </form>
-    </div>
+    
     <div class="table-responsive box">
         <table class="table table-bordered table-hover" id="myform">
             <thead>
                 <tr>
-                    <th>会员ID</th>
-                    <th>会员名称</th>
-                    <th>加扣类型</th>
-                    <th>金币类型</th>
-                    <th>金额数量</th>
-                    <th>项目类型</th>
-                    <th>原因</th>
-                    <th>提交时间</th>
-                    <th>操作人员</th>
-                    <th>操作</th>
+                    <th>ID</th>
+                    <th>发布人员</th>
+                    <th>接收人员</th>
+                    <th>发布时间
+                        <font type = "shangjin" paixu = "shang" class="top"><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></font> 
+                        <font type = "shangjin" paixu = "xia" class="bot"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></font>
+                    </th>
+                    <th>内容</th>
+                    
                 </tr>
             </thead>
             <tbody id="tes">
                 <tr>
                     <td>1</td>
-                    <td>luna</td>
-                    <td>加款</td>
-                    <td>红包</td>
-                    <td>100</td>
-                    <td>欢乐斗地主</td>
-                    <td>中奖加款</td>
-                    <td>2018年8月22日</td>
-                    <td>财务小李</td>
-                    <td>
-                        <button class="layui-btn layui-btn-xs bule">编辑</button>
+                    <td>客服A</td>
+                    <td class="shenglue content-box lianjie">
+                        小王，小李，小翔，小李，小翔，小李，小翔，小王，小李，小翔，小李，小翔，小李，小翔
                     </td>
+                    <td>
+                        2018年8月24日
+                    </td>
+                    <td class="shenglue content-box lianjie">
+                        这是一段很长很长的内容这是一段很长很长的内容这是一段很长很长的内容这是一段很长很长的内容
+                        这是一段很长很长的内容这是一段很长很长的内容这是一段很长很长的内容这是一段很长很长的内容
+                    </td>                  
+                    
                 </tr>
             </tbody>
         </table>
@@ -187,36 +189,22 @@
         layui.use(['laypage', 'layer'], function () {
             laypage = layui.laypage
                 , layer = layui.layer;
+            // 页面加载请求数据，及传入渲染函数
             demo(url, xr);
         });
 
         // 打开编辑弹框
-        $('tbody').delegate('.bule', 'click', function () {
+        $('tbody').delegate('.lianjie', 'click', function () {
             var tr_id = $(this).attr("tr-id");
             layer.open({
                 type: 2,
-                title: '编辑信息',
-                maxmin: true,
-                shadeClose: true, //点击遮罩关闭层
-                area: ['80%', '80%'],
-                offset: '20px',
-                content: 'jiacunedit.html'
-            })
-        });
-
-        // 打开编辑弹框
-        $('body').delegate('#tianjia', 'click', function () {
-            var tr_id = $(this).attr("tr-id");
-            layer.open({
-                type: 2,
-                title: '编辑信息',
+                title: '详细信息',
                 maxmin: true,
                 shadeClose: true, //点击遮罩关闭层
                 area: ['80%', '520px'],
                 offset: '20px',
-                content: 'jiacunedit.html'
-            });
-            console.log(tr_id);
+                content: 'privateLetterDetail.html'
+            })
         });
 
 
@@ -237,7 +225,7 @@
             $('#tes').html(html);
         }
 
-        
+        // 点击搜索
         $('#search_btn,font').click(function () {
             $('font').removeClass('active');
             var params = $("#shaixuan").serializeArray();
@@ -253,16 +241,13 @@
             if (jieguo.search(regname) == -1) {
                 data.type = "name";
             }
-
+            // 再次执行请求 及 传入渲染函数
             demo(url, xr, undefined, undefined, data)
 
             return false;
         });
+        
 
-        $('#status').change(function () {
-
-            $('#search_btn').click();
-        });
 
     </script>
 </body>

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="js/layui/css/layui.css">
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/layui/layui.js"></script>
-    <title>会员信息编辑</title>
+    <title>公告修改详情</title>
     <style>
         .container-fluid {
             border: solid 1px rgb(210, 210, 210);
@@ -71,18 +71,8 @@
                 margin: 5px;
             }
          }
-         #money{
-             position: relative;
-         }
-         #money[data-danwei]::after{
-             content: attr(data-danwei);
-             display: inline-block;
-             position: absolute;
-             top: 0px;
-             right: -5px;
-             height: 100%;
-             line-height: 34px;
-             font-weight: bold;
+         #submit{
+             margin: 20px;
          }
     </style> 
 </head>
@@ -92,67 +82,41 @@
         <form class="warpbox">
             <div class="row tiaobox">
                 <div class="col-md-3 col-sm-3 col-xs-12 biaoti">
-                    账户名称 :
+                    公告ID :
                 </div>
                 <div class="col-md-8 col-sm-8 col-xs-12">
-                    <input type="text" class="form-control" id="xx" placeholder="账户名称" name="user">
+                    <input type="text" class="form-control" id="xx" placeholder="账户名称" name="user" value="1" disabled>
                 </div>
             </div>
             <div class="row tiaobox">
                 <div class="col-md-3 col-sm-3 col-xs-12 biaoti">
-                    项目名称 :
+                    公告时间 :
                 </div>
                 <div class="col-md-8 col-sm-8 col-xs-12">
-                    <input type="text" class="form-control" id="" placeholder="项目名称">
+                    <input type="text" class="form-control" id="" placeholder="公告时间" value="2018年8月24日" name="shijian" disabled>
                 </div>
             </div>
             <div class="row tiaobox">
                 <div class="col-md-3 col-sm-3 col-xs-12 biaoti">
-                    备注原因 :
+                    公告标题 :
                 </div>
                 <div class="col-md-8 col-sm-8 col-xs-12">
-                    <input type="text" class="form-control" id="" placeholder="加扣原因">
+                    <input type="text" class="form-control" id="" placeholder="公告标题" value="公告标题XX" name="biaoti">
                 </div>
             </div>
             <div class="row tiaobox">
                 <div class="col-md-3 col-sm-3 col-xs-12 biaoti">
-                    金额数量 :
-                </div>
-                <div class="col-md-8 col-sm-8 col-xs-12" id="money" data-danwei="元">
-                    <input type="text" class="form-control" id="" placeholder="金额数量">
-                </div>
-            </div>
-            <div class="row tiaobox">
-                <div class="col-md-3 col-sm-3 col-xs-12 biaoti">
-                    加扣类型
+                    公告内容 :
                 </div>
                 <div class="col-md-8 col-sm-8 col-xs-12">
-                    <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 加款
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 扣款
-                    </label>
-                </div>
-            </div>
-            <div class="row tiaobox">
-                <div class="col-md-3 col-sm-3 col-xs-12 biaoti">
-                    加扣类型
-                </div>
-                <div class="col-md-8 col-sm-8 col-xs-12">
-                    <label class="radio-inline">
-                        <input type="radio" name="jinbiType" id="inlineRadio1" checked="checked" value="1"> 红包
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="jinbiType" id="inlineRadio2"  value="2"> 赏金
-                    </label>
+                    <textarea class="form-control" rows="6" name="neirong">公告内容填写公告</textarea>
                 </div>
             </div>
             <div class="row tiaobox">
                 <div class="col-md-12 col-sm-12 col-xs-12 text-center">
-                        <button class="btn btn-default" id="submit"  type="button">提交</button>
+                    <button class="btn btn-default" id="submit" type="button">提交</button>
                 </div>
-               
+            
             </div>
         </form>
     </div>
@@ -174,15 +138,6 @@
                               
             });
 
-            // radio变换
-            $('input[type=radio][name=jinbiType]').change(function () {
-                if (this.value == '1') {
-                    $('#money').attr('data-danwei','元');
-                }
-                else if (this.value == '2') {
-                    $('#money').attr('data-danwei','M')
-                }
-            });
         });
     </script>
 </body>

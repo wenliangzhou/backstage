@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>加存款</title>
+    <title>公告修改</title>
     <link rel="stylesheet" href="js/layui/css/layui.css">
     <link rel="stylesheet" href="js/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/biaoge.css">
@@ -117,8 +117,11 @@
             transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
         }
 
-        @media screen and (max-width: 450px) {
-            .layui-layer-iframe {
+        @media (max-width: 991px){ 
+            
+        }
+       @media (max-width: 767px){ 
+        .layui-layer-iframe {
                 width: 80% !important;
             }
             .box {
@@ -129,6 +132,11 @@
                 border-bottom: 1px solid#e6e6e6;
             }
         }
+        .content-box{
+            max-width: 300px;
+            /* min-width: 400px; */
+        }
+        
     </style>
 </head>
 
@@ -136,40 +144,38 @@
 <body>
     <div class="top">
         <form action="" id="shaixuan">
-            <input type="text" class="form-control" name="user" id="search" placeholder="会员名称">
+            <input type="text" class="form-control" name="user" id="search" placeholder="公告标题">
             <button class="btn btn-primary" id="search_btn">搜索</button>
-            <button type="button" class="btn btn-primary" id="tianjia" tr-id = "tianjia">添加加扣款</button>
         </form>
     </div>
     <div class="table-responsive box">
         <table class="table table-bordered table-hover" id="myform">
             <thead>
                 <tr>
-                    <th>会员ID</th>
-                    <th>会员名称</th>
-                    <th>加扣类型</th>
-                    <th>金币类型</th>
-                    <th>金额数量</th>
-                    <th>项目类型</th>
-                    <th>原因</th>
-                    <th>提交时间</th>
-                    <th>操作人员</th>
+                    <th>ID</th>
+                    <th>公告标题</th>
+                    <th>内容</th>
+                    <th>发布时间
+                        <font type = "shangjin" paixu = "shang" class="top"><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span></font> 
+                        <font type = "shangjin" paixu = "xia" class="bot"><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></font>
+                    </th>
                     <th>操作</th>
                 </tr>
             </thead>
             <tbody id="tes">
                 <tr>
                     <td>1</td>
-                    <td>luna</td>
-                    <td>加款</td>
-                    <td>红包</td>
-                    <td>100</td>
-                    <td>欢乐斗地主</td>
-                    <td>中奖加款</td>
-                    <td>2018年8月22日</td>
-                    <td>财务小李</td>
+                    <td>这是一条标题</td>
+                    <td class="shenglue content-box">
+                            这是一段很长很长的标题这是一段很长很长的标题这是一段很长很长的标题这是一段很长很长的标题
+                            这是一段很长很长的标题这是一段很长很长的标题这是一段很长很长的标题这是一段很长很长的标题
+                            这是一段很长很长的标题这是一段很长很长的标题这是一段很长很长的标题这是一段很长很长的标题
+                            这是一段很长很长的标题这是一段很长很长的标题这是一段很长很长的标题这是一段很长很长的标题
+                    </td>
+                    <td>2018年8月24日</td>                  
                     <td>
-                        <button class="layui-btn layui-btn-xs bule">编辑</button>
+                        <button class="layui-btn layui-btn-xs bule">查看/编辑</button>
+                        <button class="layui-btn layui-btn-xs red">删除</button>
                     </td>
                 </tr>
             </tbody>
@@ -181,12 +187,19 @@
     <div id="test1"></div>
 
     <script>
+
         // 后台请求地址
-        var url = "{:url('Bustasklist/bustasklist')}";
+        var url = "{:url('Activity/noticeChangeOne')}";
+        // 接受当前分页结果的数据
+        var len; //当前页有几条数据
+        var page;//请求第几条数据
+        var tiao;//每页显示几条数据
+        var data;//搜索条件变量
         // 初始化弹框
         layui.use(['laypage', 'layer'], function () {
             laypage = layui.laypage
                 , layer = layui.layer;
+            // 页面加载请求数据，及传入渲染函数
             demo(url, xr);
         });
 
@@ -198,50 +211,45 @@
                 title: '编辑信息',
                 maxmin: true,
                 shadeClose: true, //点击遮罩关闭层
-                area: ['80%', '80%'],
+                area: ['80%', '520px'],
                 offset: '20px',
-                content: 'jiacunedit.html'
+                content: 'noticeChangeDetail.html' + "?id =" + tr_id
             })
         });
 
-        // 打开编辑弹框
-        $('body').delegate('#tianjia', 'click', function () {
-            var tr_id = $(this).attr("tr-id");
-            layer.open({
-                type: 2,
-                title: '编辑信息',
-                maxmin: true,
-                shadeClose: true, //点击遮罩关闭层
-                area: ['80%', '520px'],
-                offset: '20px',
-                content: 'jiacunedit.html'
-            });
-            console.log(tr_id);
-        });
 
 
         // 渲染拼接方法
-        function xr(res) {
+        function xr(res, curr, limit) {
+            // 对上面的全部变量进行赋值
+            len = res.list.length;
+            page = curr;
+            tiao = limit;
+            console.log(page);
             // 再这里渲染 
             var html = "";
             var end = res['list'].length;
             for (var i = 0; i < end; i++) {
                 html += "<tr>";
                 html += "<td>" + res['list'][i]['id'] + "</td>";
-                html += "<td>" + res['list'][i]['name'] + "</td>";
-                html += "<td>" + res['list'][i]['money'] + "</td>";
-                html += "<td>" + res['list'][i]['man_number'] + "</td>";
-                html += "<td>" + 1 + "</td>";
+                html += "<td>" + res['list'][i]['title'] + "</td>";
+                html += "<td>" + res['list'][i]['content'] + "</td>";
+                html += "<td>" + res['list'][i]['time'] + "</td>";
+                html += "<td>";
+                html += "<button class='layui-btn layui-btn-xs bule' tr-id=" + res['list'][i]['id'] + ">查看/编辑</button>";
+                html += "<button class='layui-btn layui-btn-xs red' tr-id=" + res['list'][i]['id'] + " id='del'>删除</button>";
+                html += "</td>";
                 html += "</tr>";
             }
             $('#tes').html(html);
+
         }
 
-        
+        // 点击搜索
         $('#search_btn,font').click(function () {
             $('font').removeClass('active');
             var params = $("#shaixuan").serializeArray();
-            var data = zhuan(params);
+            data = zhuan(params);
             if ($(this)[0].id !== "search_btn") {
                 data.paixu = $(this).attr('type');
                 data.fangshi = $(this).attr('paixu');
@@ -253,17 +261,49 @@
             if (jieguo.search(regname) == -1) {
                 data.type = "name";
             }
-
+            var url = "{:url('Activity/search')}";
+            // 再次执行请求 及 传入渲染函数
             demo(url, xr, undefined, undefined, data)
 
             return false;
         });
-
+        // 下拉框触发请求
         $('#status').change(function () {
-
             $('#search_btn').click();
         });
 
+        //删除
+        $('tbody').delegate('#del', 'click', function () {
+            var this_ = this;
+            $(this).parents('tr').fadeToggle("slow");
+            var tr_id = $(this).attr("tr-id");
+            var url = "{:url('Activity/delect')}?id=" + tr_id;
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: { id: tr_id },
+                success: function (d) {
+
+                    if (d['status'] == 1) {
+                        layer.msg(d['msg']);
+                        var url = "{:url('Activity/search')}";
+                        // curr = $('.layui-laypage-curr').find('em')[1].innerText;
+                        console.log(page);
+                        // 判断请求的是第几页对page变量进行调整 ，然后再次执行请求渲染
+                        if (len == 1) {
+                            page -= 1;
+                            if (page == 0) {
+                                page = 1;
+                            }
+                        }
+                        demo(url, xr, page, tiao, data);
+                    } else {
+                        layer.msg(d['msg']);
+                    }
+                }
+                , dataType: 'json'
+            });
+        });
     </script>
 </body>
 
