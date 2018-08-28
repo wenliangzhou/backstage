@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="js/layui/css/layui.css">
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/layui/layui.js"></script>
-    <title>公告修改详情</title>
+    <title>设置聚宝盆</title>
     <style>
         .container-fluid {
             border: solid 1px rgb(210, 210, 210);
@@ -71,8 +71,18 @@
                 margin: 5px;
             }
          }
-         #submit{
-             margin: 20px;
+         #money{
+             position: relative;
+         }
+         #money[data-danwei]::after{
+             content: attr(data-danwei);
+             display: inline-block;
+             position: absolute;
+             top: 0px;
+             right: -5px;
+             height: 100%;
+             line-height: 34px;
+             font-weight: bold;
          }
     </style> 
 </head>
@@ -82,41 +92,26 @@
         <form class="warpbox">
             <div class="row tiaobox">
                 <div class="col-md-3 col-sm-3 col-xs-12 biaoti">
-                    公告ID :
+                    账户名称 :
                 </div>
                 <div class="col-md-8 col-sm-8 col-xs-12">
-                    <input type="text" class="form-control" id="xx" placeholder="账户名称" name="user" value="1" disabled>
+                    <input type="text" class="form-control" id="xx" placeholder="账户名称" name="user">
                 </div>
             </div>
             <div class="row tiaobox">
                 <div class="col-md-3 col-sm-3 col-xs-12 biaoti">
-                    公告时间 :
+                    奖品名称 :
                 </div>
                 <div class="col-md-8 col-sm-8 col-xs-12">
-                    <input type="text" class="form-control" id="" placeholder="公告时间" value="2018年8月24日" name="shijian" disabled>
+                    <input type="text" class="form-control" id="" placeholder="奖品名称">
                 </div>
             </div>
-            <div class="row tiaobox">
-                <div class="col-md-3 col-sm-3 col-xs-12 biaoti">
-                    公告标题 :
-                </div>
-                <div class="col-md-8 col-sm-8 col-xs-12">
-                    <input type="text" class="form-control" id="" placeholder="公告标题" value="公告标题XX" name="biaoti">
-                </div>
-            </div>
-            <div class="row tiaobox">
-                <div class="col-md-3 col-sm-3 col-xs-12 biaoti">
-                    公告内容 :
-                </div>
-                <div class="col-md-8 col-sm-8 col-xs-12">
-                    <textarea class="form-control" rows="6" name="neirong">公告内容填写公告</textarea>
-                </div>
-            </div>
+            
             <div class="row tiaobox">
                 <div class="col-md-12 col-sm-12 col-xs-12 text-center">
-                    <button class="btn btn-default" id="submit" type="button">提交</button>
+                        <button class="btn btn-default" id="submit"  type="button">提交</button>
                 </div>
-            
+               
             </div>
         </form>
     </div>
@@ -134,9 +129,10 @@
                 // var params = $('form').serializeArray();
                 console.log(params);  
                 
-                    
+                // ajax发送数据
+                              
             });
-            parent.sayhello();
+
         });
     </script>
 </body>

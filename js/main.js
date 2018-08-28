@@ -44,7 +44,7 @@ function demo(url, fn, curr = 1, limit, data = "") {
 		laypage.render({
 			elem: 'test1', //容器。值支持id名、原生dom对象，jquery对象。【如该容器为】：<div id="page1"></div>
 			count: res['all'], //通过后台拿到的总条数
-			layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+			layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
 			, curr: curr || 1, //当前页
 			limits: [5, 6, 7, 8, 9, 10],
 			limit: limit || 5,

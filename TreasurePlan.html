@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>夺宝计划</title>
+    <link rel="stylesheet" href="js/layui/css/layui.css">
+    <link rel="stylesheet" href="js/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/biaoge.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/layui/layui.js"></script>
+    <script src="js/main.js"></script>
+    <style>
+        html,
+        body {
+            height: 100%;
+
+        }
+
+        .red {
+            background: red;
+        }
+
+        .bule {
+            background: blueviolet;
+        }
+
+        #search {
+            width: 10%;
+            min-width: 200px;
+        }
+
+        .top {
+            padding: 20px;
+            /* height: 20%; */
+            min-height: 80px;
+            box-sizing: border-box;
+            /* margin-bottom: -50px; */
+        }
+
+        .top button,
+        input {
+            display: inline-block !important;
+        }
+
+        .top #search_btn {
+            margin-left: 10px;
+            margin-top: -2px;
+        }
+
+        .box th,
+        td {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            border-color: #e6e6e6 !important;
+            color: #666;
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 10px 20px !important;
+        }
+
+        .box th {
+            font-weight: normal !important;
+            background: rgb(242, 242, 242);
+            color: #666;
+        }
+
+        .box2 {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .state {
+            overflow: visible;
+            min-width: 93px;
+        }
+
+        .state input {
+            height: 25px !important;
+            width: 75px !important;
+        }
+
+        .layui-select-title {
+            position: relative;
+            max-width: 73px !important;
+        }
+
+        .layui-form-select .layui-edge {
+
+            right: 10% !important;
+        }
+
+        .table {
+            margin-bottom: 0px;
+        }
+
+        tbody .form-control {
+            display: block;
+            width: 100%;
+            height: auto;
+            padding: 2px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            box-sizing: content-box;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        }
+
+        @media (max-width: 991px){ 
+            
+        }
+       @media (max-width: 767px){ 
+        .layui-layer-iframe {
+                width: 80% !important;
+            }
+            .box {
+                height: auto;
+                box-sizing: border-box;
+            }
+            tbody tr:nth-last-child(1) {
+                border-bottom: 1px solid#e6e6e6;
+            }
+        }
+        .content-box{
+            max-width: 300px;
+            /* min-width: 400px; */
+        }
+        
+    </style>
+</head>
+
+
+<body>
+    
+    <div class="table-responsive box">
+        <table class="table table-bordered table-hover" id="myform">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>会员名称</th>
+                    <th>达成任务次数</th>
+                    <th>总赏金</th>
+                </tr>
+            </thead>
+            <tbody id="tes">
+                <tr>
+                    <td>1</td>
+                    <td>小王</td>
+                    <td>5</td>
+                    <td>
+                        5000
+                    </td>                
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  
+    <div id="test1"></div>
+
+    <script>
+        // 后台请求地址
+        var url = "{:url('Bustasklist/bustasklist')}";
+        // 初始化弹框
+        layui.use(['laypage', 'layer'], function () {
+            laypage = layui.laypage
+                , layer = layui.layer;
+            // 页面加载请求数据，及传入渲染函数
+            demo(url, xr);
+        });
+
+       
+
+
+        // 渲染拼接方法
+        function xr(res) {
+            // 再这里渲染 
+            var html = "";
+            var end = res['list'].length;
+            for (var i = 0; i < end; i++) {
+                html += "<tr>";
+                html += "<td>" + res['list'][i]['id'] + "</td>";
+                html += "<td>" + res['list'][i]['name'] + "</td>";
+                html += "<td>" + res['list'][i]['money'] + "</td>";
+                html += "<td>" + res['list'][i]['man_number'] + "</td>";
+                html += "<td>" + 1 + "</td>";
+                html += "</tr>";
+            }
+            $('#tes').html(html);
+        }
+
+    </script>
+</body>
+
+</html>
