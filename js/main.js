@@ -21,6 +21,14 @@ function zhuan(x) {
 }
 
 // 分页渲染方法
+/**
+ * 
+ * @param {*请求地址} url 
+ * @param {*渲染方法} fn 
+ * @param {*请求页数} curr 
+ * @param {*请求条数} limit 
+ * @param {*请求条件} data 
+ */
 function demo(url, fn, curr = 1, limit, data = "") {
 
 	// 定义当前页数及当前数据页条数的变量

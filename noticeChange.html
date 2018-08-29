@@ -187,9 +187,7 @@
     <div id="test1"></div>
 
     <script>
-        function aa(){
-            alert(1);
-        }
+        
         // 后台请求地址
         var url = "{:url('Activity/noticeChangeOne')}";
         // 接受当前分页结果的数据
@@ -265,8 +263,8 @@
             }
             var url = "{:url('Activity/search')}";
             // 再次执行请求 及 传入渲染函数
-            demo(url, xr, undefined, undefined, data)
-
+            demo(url, xr, undefined, undefined, data);
+            
             return false;
         });
         // 下拉框触发请求
@@ -306,6 +304,24 @@
                 , dataType: 'json'
             });
         });
+        // 重新刷新
+        function reload() {
+            if(typeof data == 'undefined'){
+
+                data = {key: "", status: "0", type: "username"};
+            }
+            
+            // 如果是让这行数据消失，开启这行代码
+            // if (len == 1) {
+            //     page -= 1;
+            //     if (page == 0) {
+            //         page = 1;
+            //     }
+            // }
+            // 这里的URL 是搜索时请求的url
+            demo(url,xr,page,tiao,data);
+            
+        }
     </script>
 </body>
 
