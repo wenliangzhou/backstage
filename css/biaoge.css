@@ -24,7 +24,7 @@
     max-width: 100%; */
     margin-bottom: 0px;
 }
-.box th,td{
+.box th,.box td{
     white-space:nowrap;
     text-overflow:ellipsis;
     overflow:hidden;
@@ -42,7 +42,6 @@
 .box th font{
     position: absolute;
     padding: 0px;
-    
     font-size: 12px;
     color: #b2b2b2;
 }
@@ -107,7 +106,7 @@ p{
 
 }
 .lianjie{
-    color: red;
+    color: red !important;
     font-style:italic
 }
 

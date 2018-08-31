@@ -50,8 +50,7 @@
             margin-top: -2px;
         }
 
-        .box th,
-        td {
+        .box th, .box td {
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
@@ -142,7 +141,15 @@
 
 
 <body>
-    
+        
+    <div class="top">
+        <form action="" id="shaixuan" class="form-inline">
+            <input type="text"  id="time" name="time" class="form-control">
+            <input type="text"  id="time2" name="time2" class="form-control">
+            <button type="button" class="btn btn-primary" id="search_btn">搜索</button>
+            <button type="button" class="btn btn-primary" id="tianjia" tr-id = "tianjia">添加私信</button>
+        </form>
+    </div>
     <div class="table-responsive box">
         <table class="table table-bordered table-hover" id="myform">
             <thead>
@@ -166,7 +173,7 @@
                         小王，小李，小翔，小李，小翔，小李，小翔，小王，小李，小翔，小李，小翔，小李，小翔
                     </td>
                     <td>
-                        2018年8月24日
+                            
                     </td>
                     <td class="shenglue content-box lianjie">
                         这是一段很长很长的内容这是一段很长很长的内容这是一段很长很长的内容这是一段很长很长的内容
@@ -177,20 +184,50 @@
             </tbody>
         </table>
     </div>
-    <table id="tess">
-
-    </table>
+    
     <div id="test1"></div>
-
+    
     <script>
         // 后台请求地址
         var url = "{:url('Bustasklist/bustasklist')}";
         // 初始化弹框
-        layui.use(['laypage', 'layer'], function () {
+        layui.use(['form','laydate','laypage', 'layer'], function () {
+            var laydate = layui.laydate;
             laypage = layui.laypage
                 , layer = layui.layer;
+
+                // 时间选择控件
+               laydate.render({
+                    elem: '#time' //指定元素
+                    ,value: '2018-04-18' //初始时间
+                    ,done: function(value, date, endDate){
+                        birthday = value;
+                    }
+                });
+                // 第二个控件
+                laydate.render({
+                    elem: '#time2' //指定元素
+                    ,value: '2018-04-18' //初始时间
+                    ,done: function(value, date, endDate){
+                        birthday = value;
+                    }
+                });
             // 页面加载请求数据，及传入渲染函数
             demo(url, xr);
+        });
+
+        // 打开编辑弹框
+        $('.top').delegate('#tianjia', 'click', function () {
+            
+            layer.open({
+                type: 2,
+                title: '详细信息',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area: ['80%', '520px'],
+                offset: '20px',
+                content: 'privateLetterDetail.html'
+            })
         });
 
         // 打开编辑弹框
@@ -230,6 +267,10 @@
             $('font').removeClass('active');
             var params = $("#shaixuan").serializeArray();
             var data = zhuan(params);
+            if(data.time>data.time2){
+                data = {time:data.time2,time2:data.time}
+            }
+            console.log(data);
             if ($(this)[0].id !== "search_btn") {
                 data.paixu = $(this).attr('type');
                 data.fangshi = $(this).attr('paixu');

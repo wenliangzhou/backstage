@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="js/layui/css/layui.css">
+    <link rel="stylesheet" href="css/biaoge.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/layui/layui.js"></script>
+    <script src="js/main.js"></script>
+    <title>添加私信</title>
+    <style>
+        .container-fluid {
+            border: solid 1px rgb(210, 210, 210);
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        }
+
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            height: 100%;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .warpbox {
+            margin: 0px auto;
+            /* width: 80%; */
+            padding: 0px 20px;
+        }
+
+        .biaoti {
+            text-align: right;
+            height: 100%;
+            line-height: 34px;
+        }
+
+        .tiaobox {
+            /* height: 34px; */
+            margin: 20px;
+        }
+        .col-md-8{
+            line-height: 31px;
+        }
+        
+        .col-md-8 input[type=radio]{
+            top: 5px;
+        }
+        /* 居中css */
+        
+
+        @media (max-width: 991px){ 
+            
+         }
+        @media (max-width: 767px){ 
+            .warpbox{
+                margin: 0px;
+                padding: 0px;
+                width: 100%;
+            }
+            .biaoti{
+                text-align: left;
+            }
+            .col-xs-12{
+                margin: 5px;
+            }
+         }
+         #submit{
+             margin: 20px;
+         }
+         .shanchu{
+             margin-left: 0px !important;
+         }
+    </style> 
+</head>
+
+<body>
+    <div class="container-fluid">
+        <form class="warpbox">
+                <div class="row tiaobox">
+                    <div class="col-md-3 col-sm-3 col-xs-12 biaoti">
+                        接收内容 :
+                    </div>
+                    <div class="col-md-8 col-sm-8 col-xs-12">
+                        <textarea class="form-control" rows="6" name="neirong"> 公告内容填写公告</textarea>
+                    </div>
+                </div>
+        
+            <div class="row tiaobox">
+                <div class="col-md-3 col-sm-3 col-xs-12 biaoti">
+                    接收人员 :
+                </div>
+                <div class="col-md-8 col-sm-8 col-xs-12">
+                        <div class="col-md-12">
+                            <div class="top">
+                                <form action="" id="shaixuan" class="form-inline" id="tiaojian">
+                                    <input type="text"  class="form-control" id="search" placeholder="会员名称" name="input">
+                                    <button type="button" class="btn btn-primary" id="search_btn">搜索</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                
+                                <div class="table-responsive box">
+                                    <table class="table table-bordered table-hover" id="tou">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <input type="checkbox" tou ="tou">
+                                                </th>
+                                                <th>接收人员</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tes">
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" tr-id=1 value="1">
+                                                </td>
+                                                <td>客服A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" tr-id=2 value="2">
+                                                </td>
+                                                <td>客服A</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div id="test1"></div>
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-12">
+                            <button type="button" class="layui-btn layui-btn-xs tianjia">添加</button>
+                            <button type="button" class="layui-btn layui-btn-xs red shanchu">删除</button>
+                        </div>
+                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                <div class="table-responsive box">
+                                    <table class="table table-bordered table-hover" id="tou2">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <input type="checkbox" tou = "tou2">
+                                                </th>
+                                                <th>接收人员</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tes2">
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox">
+                                                </td>
+                                                <td>客服A</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div id="test2"></div>
+                        </div>
+                </div>
+            </div>
+            
+            
+        </form>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('input[type = checkbox]').change(function () {
+                if($(this).attr('tou'))
+                {
+                    $(this).is(":checked")?$('#'+$(this).attr('tou')+' input[type = checkbox]').prop("checked",true):$('#'+$(this).attr('tou')+' input[type = checkbox]').prop("checked",false);
+                }
+            });
+            $('.tianjia').click(function () {
+                
+                $('#tou :checkbox:checked').each(function (index,el) {
+                    // console.log('ok')
+                    console.log(el.value);
+                })
+            })
+
+
+            // 后台请求地址
+            var url = "{:url('Bustasklist/bustasklist')}";
+            // 初始化弹框
+            layui.use(['form', 'laydate', 'laypage', 'layer'], function () {
+                var laydate = layui.laydate;
+                laypage = layui.laypage
+                    , layer = layui.layer;
+
+                // 页面加载请求数据，及传入渲染函数
+                demo(url, xr);
+            });
+
+
+
+
+            // 渲染拼接方法
+            function xr(res) {
+                // 再这里渲染 
+                var html = "";
+                var end = res['list'].length;
+                for (var i = 0; i < end; i++) {
+                    html += "<tr>";
+                    html += "<td>" + res['list'][i]['id'] + "</td>";
+                    html += "<td>" + res['list'][i]['name'] + "</td>";
+                    html += "<td>" + res['list'][i]['money'] + "</td>";
+                    html += "<td>" + res['list'][i]['man_number'] + "</td>";
+                    html += "<td>" + 1 + "</td>";
+                    html += "</tr>";
+                }
+                $('#tes').html(html);
+            }
+
+            // 点击搜索
+            $('#search_btn,font').click(function () {
+                $('font').removeClass('active');
+                var params = $("#tiaojian").serializeArray();
+                var data = zhuan(params);
+               
+                
+
+                var jieguo = $("#search").val();
+                // 不为空正则
+                var regname = /^\s*$/g;
+                if (jieguo.search(regname) == -1) {
+                    data.type = "name";
+                }
+                // 再次执行请求 及 传入渲染函数
+                demo(url, xr, undefined, undefined, data)
+
+                return false;
+            });
+        });
+    </script>
+    
+</body>
+
+</html>

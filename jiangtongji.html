@@ -11,6 +11,13 @@
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/layui/layui.js"></script>
     <script src="js/main.js"></script>
+    <style>
+        td .form-control{
+            width: auto;
+            padding: 2px;
+            height: auto;
+        }
+    </style>
 </head>
 
 <body>
@@ -18,13 +25,12 @@
             <form action="" id="shaixuan">
                 <input type="text"  class="form-control" id="search" placeholder="会员名称" name="input">
                 <button type="button" class="btn btn-primary" id="search_btn">搜索</button>
-                <select name="leixing" id="status"  class="xiala">
+                <select name="leixing" id="status"  class="xiala" yanse = 'green'>
                     <option value="0">发货状态</option>
                     <option value="1">已完成</option>
                     <option value="2">会完成</option>
                 </select>
             </form>
-
 
     </div>
     <div class="table-responsive box">
@@ -57,7 +63,15 @@
                     <td>小王</td>
                     <td>15072779728</td>
                     <td>这是一个地址信息xxxxxx</td>
-                    <td><button class="layui-btn layui-btn-xs redd" tr-id = "user_0">待发货</button>  </td>
+                    <td>
+                        <select id="user_1" value="1" class="form-control">
+                            <option value="0">在线</option>
+                            <option value="1">离线</option>
+                            <option value="2">异常</option>
+                            <option value="3">封停</option>
+                            <option value="4">冻结</option>
+                        </select>  
+                    </td>
                     <td>
                         <button class="layui-btn layui-btn-xs green" tr-id = "user_0">会员信息</button>
                         <button class="layui-btn layui-btn-xs bule" tr-id = "user_0">编辑</button>                 
