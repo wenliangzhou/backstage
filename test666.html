@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="js/layui/css/layui.css">
+    <link rel="stylesheet" href="js/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/biaoge.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/layui/layui.js"></script>
+    <script src="js/main.js"></script>
+    <style>
+       
+       #upload_img_list {
+	margin: 10px 0 0 0
+}
+#upload_img_list dd {
+	position: relative;
+	margin: 0 10px 10px 0;
+	float: left
+}
+#upload_img_list .operate {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 1
+}
+#upload_img_list .operate i {
+	cursor: pointer;
+	background: #2F4056;
+	padding: 2px;
+	line-height: 15px;
+	text-align: center;
+	color: #fff;
+	margin-left: 1px;
+	float: left;
+	filter: alpha(opacity=80);
+	-moz-opacity: .8;
+	-khtml-opacity: .8;
+	opacity: .8
+}
+#upload_img_list dd .img {
+	max-height: 150px;
+	max-width: 500px
+}
+        
+    </style>
+</head>
+
+
+<body>
+  
+   
+    <button type="button" class="layui-btn layui-btn-primary" id="upload_img">上传图片</button>
+    <div id="upload_img_list"> </div>
+
+           <script>
+               /*
+上传参数设定
+*/
+var upurl = "/upload/upimg";//上传图片地址
+var duotu = true;//是否为多图上传true false
+
+/*
+上传图片
+*/
+layui.use('upload', function() {
+	upload = layui.upload;
+	upload.render({
+		elem: '#upload_img',
+		url: upurl,
+		multiple: duotu,
+		before: function(obj) {
+			layer.msg('图片上传中...', {
+				icon: 16,
+				shade: 0.01,
+				time: 0
+			})
+		},
+		done: function(res) {
+			layer.close(layer.msg());//关闭上传提示窗口
+			if (duotu == true) {//调用多图上传方法,其中res.imgid为后台返回的一个随机数字
+			$('#upload_img_list').append('<dd class="item_img" id="' + res.imgid + '"><div class="operate"><i class="toleft layui-icon"></i><i class="toright layui-icon"></i><i onclick=UPLOAD_IMG_DEL("' + res.imgid + '") class="close layui-icon"></i></div><img src="' + res.tolink + '" class="img" ><input type="hidden" name="dzd_img[]" value="' + res.tolink + '" /></dd>');
+			}else{//调用单图上传方法,其中res.imgid为后台返回的一个随机数字
+				$('#upload_img_list').html('<dd class="item_img" id="' + res.imgid + '"><div class="operate"><i onclick=UPLOAD_IMG_DEL("' + res.imgid + '") class="close layui-icon"></i></div><img src="' + res.tolink + '" class="img" ><input type="hidden" name="dzd_img" value="' + res.tolink + '" /></dd>');
+			}
+		}
+	})
+});
+
+
+/*
+删除上传图片
+*/
+function UPLOAD_IMG_DEL(divs) {
+	$("#"+divs).remove();
+}
+
+/*
+多图上传变换左右位置
+*/
+$(".toleft").live("click", function() {
+	var item = $(this).parent().parent(".item_img");
+	var item_left = item.prev(".item_img");
+	if ($("#upload_img_list").children(".item_img").length >= 2) {
+		if (item_left.length == 0) {
+			item.insertAfter($("#upload_img_list").children(".item_img:last"))
+		} else {
+			item.insertBefore(item_left)
+		}
+	}
+});
+$(".toright").live("click", function() {
+	var item = $(this).parent().parent(".item_img");
+	var item_right = item.next(".item_img");
+	if ($("#upload_img_list").children(".item_img").length >= 2) {
+		if (item_right.length == 0) {
+			item.insertBefore($("#upload_img_list").children(".item_img:first"))
+		} else {
+			item.insertAfter(item_right)
+		}
+	}
+});
+           </script> 
+        
+</body>
+</html>

@@ -176,50 +176,43 @@
         $(document).ready(function () {
             // 定义一个储存返回数据的变量
             var data_2 = [];
+            var data_3 = [];
+            var arr1 = [];
+            var arr2 = [];
             $('input[type = checkbox]').change(function () {
                 // 判断是不是点击的是全选
                 if($(this).attr('tou'))
                 {
                     $(this).is(":checked")?$('#'+$(this).attr('tou')+' input[type = checkbox]').prop("checked",true):$('#'+$(this).attr('tou')+' input[type = checkbox]')
                     .each(function (index,el) {
-                        if(!$(this).is(':disabled'))
-                        {
                             $(this).prop("checked",false);
-                        }
                     })
                 }
-            });
-            // 添加操作
-            $('.tianjia,.shanchu').click(function () {
-                var selectName;
-                $('.tianjia')[0]===this ? selectName = 'tou':selectName = 'tou2';
-                // 点击不同按钮对不同表格的  已选择的元素进行遍历操作
-                $('#'+selectName+' :checkbox:checked').each(function (index,el) {
-                    // console.log(this)
-                    // console.log(el.value);
-                    // 没有被禁用且不是不是全选 对元素进去操作
-                    if(!$(this).is(':disabled') && !$(this).attr('tou'))
-                    {
-                        if(selectName==='tou')
-                        {
-                            $(this).attr('disabled',true);
-                            data_2.push(el.value);
-                        }else{
-                            
-                            var index = data_2.indexOf(el.value);
-                            data_2.splice(index,1);
-                            $('.shanchu').attr('disabled',true);
-                            $(el.parentElement.parentElement).hide(1000,function() {
-                                $(this).remove();
-                                $('.shanchu').attr('disabled',false);
-                            });
-                            
-                        }
+            
+                // 表格1 input出发  不是全选的情况  arr1的变化
+                var id = $(this).parent().parent().parent().parent()[0].id;
+                if(id==='tou'&& !$(this).attr('tou') && !$("input[tou = tou]").is(":checked"))
+                {
+                    if($(this).is(":checked")){
+                        arr1.push($(this).val());
+                    }else{
+                        var index = arr1.indexOf($(this).val());
+                        arr1.splice(index,1)
                     }
-                    // console.log($(this).is(':disabled'))
-                })
-                console.log(data_2);
+                }else{
+                    if($(this).is(":checked")){
+                        arr2.push($(this).val());
+                    }else{
+                        var index = arr2.indexOf($(this).val());
+                        arr2.splice(index,1)
+                    }
+                }
+                    console.log('数组一  '+arr1)
+                    // console.log('数组二  '+arr2)
             });
+            
+            
+
             // 删除操作
             // $('.shanchu').click(function () {
                 
