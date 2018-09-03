@@ -11,6 +11,7 @@
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/layui/layui.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/wlz.js"></script>
     <title>添加私信</title>
     <style>
         .container-fluid {
@@ -101,20 +102,22 @@
                 <div class="col-md-8 col-sm-8 col-xs-12">
                         <div class="col-md-12">
                             <div class="top">
-                                <form action="" id="shaixuan" class="form-inline" id="tiaojian">
-                                    <input type="text"  class="form-control" id="search" placeholder="会员名称" name="input">
-                                    <button type="button" class="btn btn-primary" id="search_btn">搜索</button>
-                                </form>
+                                <div action="" id="shaixuan" class="form-inline" id="tiaojian">
+                                    <input type="text"  class="form-control"  placeholder="会员名称" name="input" id="sou">
+                                    <button type="button" class="btn btn-primary" id="search_btn1">搜索</button>
+                                    <input type="text"  class="form-control"  placeholder="会员名称" name="input" id="sou2">
+                                    <button type="button" class="btn btn-primary" id="search_btn2">搜索</button>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-5 col-sm-5 col-xs-12">
                                 
                                 <div class="table-responsive box">
-                                    <table class="table table-bordered table-hover" id="tou">
+                                    <table class="table table-bordered table-hover" id="box1">
                                         <thead>
                                             <tr>
                                                 <th>
-                                                    <input type="checkbox" tou ="tou">
+                                                    <input type="checkbox" tou='tou1' id="tou1" checked>
                                                 </th>
                                                 <th>接收人员</th>
                                             </tr>
@@ -122,7 +125,7 @@
                                         <tbody id="tes">
                                             <tr>
                                                 <td>
-                                                    <input type="checkbox" tr-id=1 value="id1">
+                                                    <input type="checkbox" tr-id=1 value="id1" >
                                                 </td>
                                                 <td>客服A</td>
                                             </tr>
@@ -144,11 +147,11 @@
                         </div>
                         <div class="col-md-5 col-sm-5 col-xs-12">
                                 <div class="table-responsive box">
-                                    <table class="table table-bordered table-hover" id="tou2">
+                                    <table class="table table-bordered table-hover" id="box2">
                                         <thead>
                                             <tr>
                                                 <th>
-                                                    <input type="checkbox" tou = "tou2">
+                                                    <input type="checkbox" tou = 'tou2' id="tou2"> 
                                                 </th>
                                                 <th>接收人员</th>
                                             </tr>
@@ -156,9 +159,14 @@
                                         <tbody id="tes2">
                                             <tr>
                                                 <td>
-                                                    <input type="checkbox" value="id2">
+                                                    <input type="checkbox" value="id3">
                                                 </td>
                                                 <td>客服A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" value="id4">
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -175,43 +183,286 @@
     <script>
         $(document).ready(function () {
             // 定义一个储存返回数据的变量
-            var data_2 = [];
-            var data_3 = [];
-            var arr1 = [];
-            var arr2 = [];
-            $('input[type = checkbox]').change(function () {
-                // 判断是不是点击的是全选
-                if($(this).attr('tou'))
-                {
-                    $(this).is(":checked")?$('#'+$(this).attr('tou')+' input[type = checkbox]').prop("checked",true):$('#'+$(this).attr('tou')+' input[type = checkbox]')
-                    .each(function (index,el) {
-                            $(this).prop("checked",false);
-                    })
-                }
             
-                // 表格1 input出发  不是全选的情况  arr1的变化
-                var id = $(this).parent().parent().parent().parent()[0].id;
-                if(id==='tou'&& !$(this).attr('tou') && !$("input[tou = tou]").is(":checked"))
-                {
-                    if($(this).is(":checked")){
-                        arr1.push($(this).val());
+            // $('input[type = checkbox]').change(function () {
+            //     // 判断是不是点击的是全选
+            //     if($(this).attr('tou'))
+            //     {
+            //         $(this).is(":checked")?$('#'+$(this).attr('tou')+' input[type = checkbox]').prop("checked",true):$('#'+$(this).attr('tou')+' input[type = checkbox]')
+            //         .each(function (index,el) {
+            //                 $(this).prop("checked",false);
+            //         })
+            //     }
+            
+            //     // 表格1 input出发  不是全选的情况  arr1的变化
+            //     var id = $(this).parent().parent().parent().parent()[0].id;
+            //     if(id==='tou'&& !$(this).attr('tou') && !$("input[tou = tou]").is(":checked"))
+            //     {
+            //         if($(this).is(":checked")){
+            //             arr1.push($(this).val());
+            //         }else{
+            //             var index = arr1.indexOf($(this).val());
+            //             arr1.splice(index,1)
+            //         }
+            //     }else{
+            //         if($(this).is(":checked")){
+            //             arr2.push($(this).val());
+            //         }else{
+            //             var index = arr2.indexOf($(this).val());
+            //             arr2.splice(index,1)
+            //         }
+            //     }
+            //         console.log('数组一  '+arr1)
+            //         // console.log('数组二  '+arr2)
+            // });
+            
+            wlz.checkAll({box:['#box1','#box2']});
+
+            function condition() {
+                var arr = [];   //全选搜索 重置为空再合并
+                var x = 2;
+                var arr1 = [];
+                var arr2 = [];
+                var crr1 = [];
+                var crr2 = [];  //点击搜索 重置为空
+                var result={type:'only',arr};       //条件
+                var sou = false;
+                var sou2 = false;
+                // 重置数组
+                $('th input[type = checkbox]').change(function () {
+                    if($(this).is(':checked')){
+                        // 改变到全选
+                        if($(this).attr('tou') === 'tou1'){
+                            arr1 = [];
+                        }else{
+                            arr2 = [];
+                        }
                     }else{
-                        var index = arr1.indexOf($(this).val());
-                        arr1.splice(index,1)
+                        // 改变到非全选
+                        if($(this).attr('tou') === 'tou1'){
+                            crr1 = [];
+                        }else{
+                            crr2 = [];
+                        }
                     }
-                }else{
-                    if($(this).is(":checked")){
-                        arr2.push($(this).val());
+                });
+                // td改变数组元素
+                $('td input[type = checkbox]').change(function () {
+                    var boxId = $(this).parent().parent().parent().parent()[0].id;
+                    var thBol = $('#'+boxId+' th input[type = checkbox]').is(':checked');
+                    var value = $(this).val();
+                    // console.log(thBol)
+                    // 非搜索状态下的变化
+                    if(thBol){
+                        // 全选状态下  arr1和arr2的改变
+                        if(boxId==='box1' && !sou)
+                        {
+                            var index = arr1.indexOf(value);
+                            index !== -1 ? arr1.splice(index,1):arr1.push(value);
+                            arr1 = [...new Set(arr1)];
+                        }else if(boxId==='box2' && !sou2){
+                            var index = arr2.indexOf(value);
+                            index !== -1 ? arr2.splice(index,1):arr2.push(value);
+                            arr2 = [...new Set(arr2)];
+                        }
                     }else{
-                        var index = arr2.indexOf($(this).val());
-                        arr2.splice(index,1)
+                        // 非全选状态下  crr1和crr2的改变
+                        if(boxId==='box1' && !sou){
+                            var index = crr1.indexOf(value);
+                            index !== -1 ? crr1.splice(index,1):crr1.push(value);
+                            crr1 = [...new Set(crr1)];
+                        }else if(boxId==='box2' && !sou2){
+                            var index = crr2.indexOf(value);
+                            index !== -1 ? crr2.splice(index,1):crr2.push(value);
+                            crr2 = [...new Set(crr2)];
+                        }
                     }
-                }
-                    console.log('数组一  '+arr1)
-                    // console.log('数组二  '+arr2)
-            });
-            
-            
+                    // console.log(crr2);
+                    console.log(arr2);
+                })
+                // 点击搜索改变sou sou2
+                $('#search_btn1,#search_btn2').click(function () {
+                    var bol = $(this)[0].id === 'search_btn1';
+                    if(bol){
+                        $('#sou').val()===''?sou=false:sou=true;
+                        crr1 = [];//点击搜索重置数组
+                        console.log(sou)
+                        
+                    }else{
+                        $('#sou2').val()===''?sou2=false:sou2=true;
+                        crr2 = [];//点击搜索重置数组
+                        result.inputvalue = $('#sou2').val();
+                        console.log(result);
+                        demo2(url, xr2, undefined, undefined, result);
+                    }
+
+                })
+                $('.tianjia,.shanchu').click(function () {
+                    //全选且没有搜索条件
+                    var box;
+                    $(this).html()==='添加'?box = 1:box = 2;
+                    var bol1 = $('#tou1').is(':checked');
+                    var bol2 = $('#tou2').is(':checked');
+                    if(box===1 && !sou && bol1){
+                        //点击添加 且 没有搜索  且全选
+                        //全选条件下arr重置为[];
+                        arr = [];
+                        arr = [...new Set(arr.concat(arr1))];
+                        arr1= []; //点击后重置arr1
+                        $('#tou1').prop("checked",false);
+                        x = 1;  
+                        //-------------------------发送请求  只要arr    除了arr    点击添加(全选)
+                        var data1 = {type:'only',arr};
+                        var data2 = {type:'all',arr}
+                        demo(url, xr, undefined, undefined, data1);
+                        demo2(url, xr2, undefined, undefined, data2);
+                        result = data2;
+                    }else if(box===2 && !sou2 && bol2){
+                        //点击删除 且 没有搜索  且全选
+                        //全选条件下arr重置为[];
+                        arr = [];
+                        arr = [...new Set(arr.concat(arr2))];
+                        arr2= []; //点击后重置arr1
+                        $('#tou2').prop("checked",false);
+                        x = 2;
+                        //-------------------------发送请求 只要arr    除了arr      点击删除(全选)
+                        var data1 = {type:'only',arr};
+                        var data2 = {type:'all',arr}
+                        demo(url, xr, undefined, undefined, data2);
+                        demo2(url, xr2, undefined, undefined, data1);
+                        result = data1;
+                    }
+                    // 非全选 且 没有搜索条件 x = 1
+                    if(box===1 && !sou && !bol1 && x === 2){
+                        arr = [...new Set(arr.concat(crr1))];  //合并
+                        crr1 = [];//重置
+                        // -------------------------发送请求 除了arr     只要arr     点击添加(非全选)(不在这边)
+                        var data1 = {type:'all',arr};
+                        var data2 = {type:'only',arr}
+                        demo(url, xr, undefined, undefined, data1);
+                        demo2(url, xr2, undefined, undefined, data2);
+                        result = data2;
+                    }else if(box===2 && !sou2 && !bol1 && x === 1){
+                        arr = [...new Set(arr.concat(crr2))];  //合并
+                        crr2 = [];//重置
+                        // -------------------------发送请求 除了arr     只要arr     点击删除(非全选)(不在这边)
+                        var data1 = {type:'all',arr};
+                        var data2 = {type:'only',arr}
+                        demo(url, xr, undefined, undefined, data2);
+                        demo2(url, xr2, undefined, undefined, data1);
+                        result = data1;
+                    }
+                    if(box===1 && !sou && !bol1 && x === 1){
+                        crr1.forEach(ele => {
+                            var index = arr.indexOf(ele);
+                            arr.splice(index,1);
+                        });
+                        crr1 = [];//重置 
+                        // -------------------------发送请求  只要 arr    除了 arr   点击添加(非全选)(在这边)
+                        var data1 = {type:'only',arr};
+                        var data2 = {type:'all',arr}
+                        demo(url, xr, undefined, undefined, data1);
+                        demo2(url, xr2, undefined, undefined, data2);
+                        result = data2;
+                    }else if(box===2 && !sou2 && !bol1 && x === 2){
+                        crr2.forEach(ele => {
+                            var index = arr.indexOf(ele);
+                            arr.splice(index,1);
+                        });
+                        crr2 = [];//重置 
+                        // -------------------------发送请求  只要 arr    除了 arr   点击删除(非全选)(在这边)
+                        var data1 = {type:'only',arr};
+                        var data2 = {type:'all',arr}
+                        demo(url, xr, undefined, undefined, data2);
+                        demo2(url, xr2, undefined, undefined, data1);
+                        result = data1;
+                    }
+                    //搜索条件
+                    
+                    if(box===1 && sou  && x === 2){
+                        var ele = $('#box1 td input[type = checkbox]')[0];
+                        if($(ele).is(':checked')){
+                            crr1.push(ele.value);
+                        }else{
+                            crr1= [];
+                        }
+                        arr = [...new Set(arr.concat(crr1))];  //合并
+                        crr1 = [];
+                        //-------------------------发送请求  除了arr     只要arr     点击添加(搜索)(不在这边)
+                        var data1 = {type:'all',arr};
+                        var data2 = {type:'only',arr}
+                        demo(url, xr, undefined, undefined, data1);
+                        demo2(url, xr2, undefined, undefined, data2);
+                        result = data2;
+                    }else if(box===2 && sou  && x === 1){
+                        var ele = $('#box2 td input[type = checkbox]')[0];
+                        
+                        if($(ele).is(':checked')){
+                            crr2.push(ele.value);
+                        }else{
+                            crr2= [];
+                        }
+                        arr = [...new Set(arr.concat(crr2))];  //合并
+                        crr2 = [];
+                        // ------------------------发送请求 除了arr   只要 arr    点击删除(搜索)(不在这边)
+                        var data1 = {type:'all',arr};
+                        var data2 = {type:'only',arr}
+                        demo(url, xr, undefined, undefined, data2);
+                        demo2(url, xr2, undefined, undefined, data1);
+                        result = data1;
+                    }
+                    
+                    if(box===1 && sou  && x === 1){
+                        var ele = $('#box1 td input[type = checkbox]')[0];
+                        if($(ele).is(':checked')){
+                            crr1.push(ele.value);
+                        }else{
+                            crr1= [];
+                        }
+                        var index = arr.indexOf(crr1);
+                            if(index !== -1){
+                                arr.splice(index,1);
+                            }
+                        //--------------------------发送请求  只要arr     除了 arr 点击添加(搜索)(在这边) 
+                        var data1 = {type:'all',arr};
+                        var data2 = {type:'only',arr}
+                        demo(url, xr, undefined, undefined, data2);
+                        demo2(url, xr2, undefined, undefined, data1);
+                        result = data1;
+                            crr1 = [];
+
+                    }else if(box===2 && sou  && x === 2){
+                        var ele = $('#box2 td input[type = checkbox]')[0];
+                        if($(ele).is(':checked')){
+                            crr2.push(ele.value);
+                        }else{
+                            crr2= [];
+                        }
+                        var index = arr.indexOf(crr2);
+                            if(index !== -1){
+                                arr.splice(index,1);
+                            }
+                        // ---------------------------发送请求  只要arr   除了 arr 点击删除(搜索)(在这边)
+                        var data1 = {type:'all',arr};
+                        var data2 = {type:'only',arr}
+                        demo(url, xr, undefined, undefined, data1);
+                        demo2(url, xr2, undefined, undefined, data2);
+                        result = data2;
+                        crr2 = [];
+                    }
+                })
+                return result;
+            }
+            var result = condition();
+
+
+
+
+
+
+
+
+
 
             // 删除操作
             // $('.shanchu').click(function () {
