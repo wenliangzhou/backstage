@@ -13,30 +13,36 @@ var wlz = (function (wlz) {
         };
     }());
     // 全选方法
-    wlz.checkAll = (function () {
-        return function ({box}={}) {
-            box.forEach(element => {
-                var th = element+' th input[type = checkbox]'; 
-                var td = element+' td input[type = checkbox]';           
-                var boolean = $(th).is(':checked');
-                if(boolean){
-                    $(td).prop("checked",true);
-                }else{
-                    $(td).prop("checked",false);
-                }
-
-                // 监听全选事件
-                $(th).change(function () {
-                    var boolean = $(th).is(':checked');
-                    if(boolean){
-                        $(td).prop("checked",true);
-                    }else{
-                        $(td).prop("checked",false);
-                    }
-                });
-            });
-        }
-    }());
+    // wlz.checkAll = (function () {
+    //     return function ({box}={}) {
+    //         box.forEach(element => {
+    //             var th = element+' th input[type = checkbox]'; 
+    //             var td = element+' td input[type = checkbox]';           
+    //             var boolean = $(th).is(':checked');
+    //             if(boolean){
+    //                 arr = [...new Set(arr1.concat(arr2))];
+    //                 arr.forEach(function (ele) {
+    //                     console.log($('input[value = ele]'))
+    //                 })
+    //                 $(td).prop("checked",true);
+    //             }else{
+    //                 $(td).prop("checked",false);
+                    
+    //             }
+    //             // 
+    //             // 监听全选事件
+    //             $(th).change(function () {
+    //                 var boolean = $(th).is(':checked');
+    //                 if(boolean){
+    //                     $(td).prop("checked",true);
+                        
+    //                 }else{
+    //                     $(td).prop("checked",false);
+    //                 }
+    //             });
+    //         });
+    //     }
+    // }());
     // 添加删除
     
     return wlz;

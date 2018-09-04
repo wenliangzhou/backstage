@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="js/layui/css/layui.css">
-    <link rel="stylesheet" href="css/biaoge.css">
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/layui/layui.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/wlz.js"></script>
+    <link rel="stylesheet" href="{$Think.ADMIN_PATH}css/bootstrap.min.css">
+    <link rel="stylesheet" href="{$Think.ADMIN_PATH}js/layui/css/layui.css">
+    <link rel="stylesheet" href="{$Think.ADMIN_PATH}css/biaoge.css">
+    <script src="{$Think.ADMIN_PATH}js/jquery-3.3.1.min.js"></script>
+    <script src="{$Think.ADMIN_PATH}js/layui/layui.js"></script>
+    <script src="{$Think.ADMIN_PATH}js/main.js"></script>
+    <script src="{$Think.ADMIN_PATH}js/wlz.js"></script>
     <title>添加私信</title>
     <style>
         .container-fluid {
@@ -20,7 +20,7 @@
             margin-bottom: 20px;
             padding-bottom: 10px;
         }
-        
+
         html {
             width: 100%;
             height: 100%;
@@ -43,7 +43,7 @@
             height: 100%;
             line-height: 34px;
         }
-        
+
         .tiaobox {
             /* height: 34px; */
             margin: 20px 0px;
@@ -51,19 +51,19 @@
         .col-md-8{
             line-height: 31px;
         }
-        
+
         .col-md-8 input[type=radio]{
             top: 5px;
         }
         #shaixuan div{
             padding: 15px;
         }
-        
 
-        @media (max-width: 991px){ 
-            
+
+        @media (max-width: 991px){
+
          }
-        @media (max-width: 767px){ 
+        @media (max-width: 767px){
             .warpbox{
                 margin: 0px;
                 padding: 0px;
@@ -82,7 +82,10 @@
          .shanchu{
              margin-left: 0px !important;
          }
-    </style> 
+         .pad{
+             padding: 10px 30px;
+         }
+    </style>
 </head>
 
 <body>
@@ -92,18 +95,16 @@
                     <div class="col-md-2 col-sm-2 col-xs-12 biaoti">
                         接收内容 :
                     </div>
-                    <div class="col-md-10 col-sm-10 col-xs-12">
-                        <textarea class="form-control" rows="6" name="neirong"> 公告内容填写公告</textarea>
+                    <div class="col-md-10 col-sm-10 col-xs-12 pad">
+                        <textarea class="form-control" rows="6" name="neirong"></textarea>
                     </div>
                 </div>
-        
+
             <div class="row tiaobox">
                 <div class="col-md-2 col-sm-2 col-xs-12 biaoti">
                     接收人员 :
                 </div>
                 <div class="col-md-10 col-sm-10 col-xs-12">
-                        
-                           
                         <div action="" id="shaixuan" class="form-inline" id="tiaojian">
                             <div class="col-md-5 col-sm-5 col-xs-12">
                                 <input type="text"  class="form-control"  placeholder="会员名称" name="input" id="sou">
@@ -114,18 +115,17 @@
                                 <button type="button" class="btn btn-primary" id="search_btn2">搜索</button>
                             </div>
                         </div>
-                           
-                        
                         <div class="col-md-5 col-sm-5 col-xs-12">
-                                
+
                                 <div class="table-responsive box">
                                     <table class="table table-bordered table-hover" id="box1">
                                         <thead>
                                             <tr>
                                                 <th>
-                                                    <input type="checkbox" tou='tou1' id="tou1" checked>
+                                                    <input type="checkbox" tou='tou1' id="tou1" >
                                                 </th>
-                                                <th>接收人员</th>
+                                                <th>ID</th>
+                                                <th>接收人</th>
                                             </tr>
                                         </thead>
                                         <tbody id="tes">
@@ -144,7 +144,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                
+
                                 <div id="test1"></div>
                         </div>
                         <div class="col-md-2 col-sm-2 col-xs-12">
@@ -157,9 +157,10 @@
                                         <thead>
                                             <tr>
                                                 <th>
-                                                    <input type="checkbox" tou = 'tou2' id="tou2"> 
+                                                    <input type="checkbox" tou = 'tou2' id="tou2">
                                                 </th>
-                                                <th>接收人员</th>
+                                                <th>ID</th>
+                                                <th>接收人</th>
                                             </tr>
                                         </thead>
                                         <tbody id="tes2">
@@ -177,20 +178,23 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                
+
                                 <div id="test2"></div>
                         </div>
                 </div>
             </div>
-            
-            
+
+
         </form>
+        <div class="row tiaobox">
+            <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                <button class="btn btn-default" id="submit" type="button">提交</button>
+            </div>
+        </div>
     </div>
     <script>
         $(document).ready(function () {
-            
-            
-            
+
             var arr = [];   //全选搜索 重置为空再合并
             var x = 2;
             var arr1 = [];
@@ -199,19 +203,23 @@
             var crr2 = [];  //点击搜索 重置为空
             var result1={type:'all',arr};       //box1条件
             var result2={type:'only',arr};       //box2条件
-
+            var sou = false;
+            var sou2 = false;
             function checkAll({ box } = {}) {
                 box.forEach(element => {
+
                     var th = element + ' th input[type = checkbox]';
                     var td = element + ' td input[type = checkbox]';
                     var boolean = $(th).is(':checked');
                     if (boolean) {
+
                         $(td).prop("checked", true);
                         var brr = [...new Set(arr1.concat(arr2))];
+                            console.log(arr1)
                         brr.forEach(function (ele) {
                             $('input[value = '+ele+']').prop("checked",false);
                         })
-                        
+
                     } else {
                         $(td).prop("checked", false);
                         var brr = [...new Set(crr1.concat(crr2))];
@@ -219,7 +227,7 @@
                             $('input[value = '+ele+']').prop("checked",true);
                         })
                     }
-                    // 
+                    //
                     // 监听全选事件
                     $(th).change(function () {
                         var boolean = $(th).is(':checked');
@@ -232,13 +240,13 @@
                     });
                 });
             }
-            checkAll({box:['#box1','#box2']});
+
+
             function condition() {
-                
-                
-                
-                var sou = false;
-                var sou2 = false;
+
+
+
+
                 // 重置数组
                 $('th input[type = checkbox]').change(function () {
                     if($(this).is(':checked')){
@@ -257,13 +265,15 @@
                         }
                     }
                 });
-                // td改变数组元素
-                $('td input[type = checkbox]').change(function () {
+
+                $(document).on("change", "td input[type = checkbox]", function(){
+                    //此处的$(this)指$( "#testDiv")，而非$(document)
                     var boxId = $(this).parent().parent().parent().parent()[0].id;
                     var thBol = $('#'+boxId+' th input[type = checkbox]').is(':checked');
                     var value = $(this).val();
                     // console.log(thBol)
                     // 非搜索状态下的变化
+
                     if(thBol){
                         // 全选状态下  arr1和arr2的改变
                         if(boxId==='box1' && !sou)
@@ -271,6 +281,7 @@
                             var index = arr1.indexOf(value);
                             index !== -1 ? arr1.splice(index,1):arr1.push(value);
                             arr1 = [...new Set(arr1)];
+
                         }else if(boxId==='box2' && !sou2){
                             var index = arr2.indexOf(value);
                             index !== -1 ? arr2.splice(index,1):arr2.push(value);
@@ -288,19 +299,57 @@
                             crr2 = [...new Set(crr2)];
                         }
                     }
-                    // console.log(crr2);
-                    console.log(arr1);
-                })
+                    console.log(arr2);
+                    // console.log(arr2);
+                });
+                // td改变数组元素
+                // $('td input[type = checkbox]').change(function () {
+                //     var boxId = $(this).parent().parent().parent().parent()[0].id;
+                //     var thBol = $('#'+boxId+' th input[type = checkbox]').is(':checked');
+                //     var value = $(this).val();
+                //     // console.log(thBol)
+                //     // 非搜索状态下的变化
+                //
+                //     if(thBol){
+                //         // 全选状态下  arr1和arr2的改变
+                //         if(boxId==='box1' && !sou)
+                //         {
+                //             var index = arr1.indexOf(value);
+                //             index !== -1 ? arr1.splice(index,1):arr1.push(value);
+                //             arr1 = [...new Set(arr1)];
+                //
+                //         }else if(boxId==='box2' && !sou2){
+                //             var index = arr2.indexOf(value);
+                //             index !== -1 ? arr2.splice(index,1):arr2.push(value);
+                //             arr2 = [...new Set(arr2)];
+                //         }
+                //     }else{
+                //         // 非全选状态下  crr1和crr2的改变
+                //         if(boxId==='box1' && !sou){
+                //             var index = crr1.indexOf(value);
+                //             index !== -1 ? crr1.splice(index,1):crr1.push(value);
+                //             crr1 = [...new Set(crr1)];
+                //         }else if(boxId==='box2' && !sou2){
+                //             var index = crr2.indexOf(value);
+                //             index !== -1 ? crr2.splice(index,1):crr2.push(value);
+                //             crr2 = [...new Set(crr2)];
+                //         }
+                //     }
+                //     console.log(arr1);
+                //     console.log(arr2);
+                // })
                 // 点击搜索改变sou sou2
                 $('#search_btn1,#search_btn2').click(function () {
+                    console.log(result1);
                     var bol = $(this)[0].id === 'search_btn1';
                     if(bol){
+
                         $('#sou').val()===''?sou=false:sou=true;
                         crr1 = [];//点击搜索重置数组
                         result1.inputvalue = $('#sou').val();
                         console.log(result1);
-                        demo(url, xr2, undefined, undefined, result1);
-                        
+                        demo(url, xr, undefined, undefined, result1);
+
                     }else{
                         $('#sou2').val()===''?sou2=false:sou2=true;
                         crr2 = [];//点击搜索重置数组
@@ -311,6 +360,7 @@
 
                 })
                 $('.tianjia,.shanchu').click(function () {
+
                     //全选且没有搜索条件
                     var box;
                     $(this).html()==='添加'?box = 1:box = 2;
@@ -319,80 +369,84 @@
                     if(box===1 && !sou && bol1){
                         //点击添加 且 没有搜索  且全选
                         //全选条件下arr重置为[];
+
                         arr = [];
                         arr = [...new Set(arr.concat(arr1))];
                         arr1= []; //点击后重置arr1
                         $('#tou1').prop("checked",false);
-                        x = 1;  
+                        x = 1;
                         //-------------------------发送请求  只要arr    除了arr    点击添加(全选)
-                        var result1 = {type:'only',arr};
-                        var result2 = {type:'all',arr}
+                        result1 = {type:'only',arr};
+                        result2 = {type:'all',arr}
                         demo(url, xr, undefined, undefined, result1);
                         demo2(url, xr2, undefined, undefined, result2);
-                        
+
                     }else if(box===2 && !sou2 && bol2){
                         //点击删除 且 没有搜索  且全选
                         //全选条件下arr重置为[];
+
+
                         arr = [];
                         arr = [...new Set(arr.concat(arr2))];
                         arr2= []; //点击后重置arr1
                         $('#tou2').prop("checked",false);
                         x = 2;
                         //-------------------------发送请求 只要arr    除了arr      点击删除(全选)
-                        var result2 = {type:'only',arr};
-                        var result1 = {type:'all',arr}
+                        result2 = {type:'only',arr};
+                        result1 = {type:'all',arr}
                         demo(url, xr, undefined, undefined, result1);
                         demo2(url, xr2, undefined, undefined, result2);
-                    
+
                     }
                     // 非全选 且 没有搜索条件 x = 1
                     if(box===1 && !sou && !bol1 && x === 2){
                         arr = [...new Set(arr.concat(crr1))];  //合并
                         crr1 = [];//重置
                         // -------------------------发送请求 除了arr     只要arr     点击添加(非全选)(不在这边)
-                        var result1 = {type:'all',arr};
-                        var result2 = {type:'only',arr}
+                        result1 = {type:'all',arr};
+                        result2 = {type:'only',arr}
                         demo(url, xr, undefined, undefined, result1);
                         demo2(url, xr2, undefined, undefined, result2);
-                        
+
                     }else if(box===2 && !sou2 && !bol1 && x === 1){
                         arr = [...new Set(arr.concat(crr2))];  //合并
                         crr2 = [];//重置
                         // -------------------------发送请求 除了arr     只要arr     点击删除(非全选)(不在这边)
-                        var result2 = {type:'all',arr};
-                        var result1 = {type:'only',arr};
+                        result2 = {type:'all',arr};
+                        result1 = {type:'only',arr};
                         demo(url, xr, undefined, undefined, result1);
                         demo2(url, xr2, undefined, undefined, result2);
-                        
+
                     }
                     if(box===1 && !sou && !bol1 && x === 1){
                         crr1.forEach(ele => {
                             var index = arr.indexOf(ele);
                             arr.splice(index,1);
                         });
-                        crr1 = [];//重置 
+                        crr1 = [];//重置
                         // -------------------------发送请求  只要 arr    除了 arr   点击添加(非全选)(在这边)
-                        var result1 = {type:'only',arr};
-                        var result2 = {type:'all',arr};
+                        result1 = {type:'only',arr};
+                        result2 = {type:'all',arr};
                         demo(url, xr, undefined, undefined, result1);
                         demo2(url, xr2, undefined, undefined, result2);
-                        result = data2;
+
                     }else if(box===2 && !sou2 && !bol1 && x === 2){
                         crr2.forEach(ele => {
                             var index = arr.indexOf(ele);
                             arr.splice(index,1);
                         });
-                        crr2 = [];//重置 
+                        crr2 = [];//重置
                         // -------------------------发送请求  只要 arr    除了 arr   点击删除(非全选)(在这边)
-                        var result2 = {type:'only',arr};
-                        var result1 = {type:'all',arr}
+                        result2 = {type:'only',arr};
+                        result1 = {type:'all',arr}
                         demo(url, xr, undefined, undefined, result1);
                         demo2(url, xr2, undefined, undefined, result2);
-                        
+
                     }
                     //搜索条件
-                    
+
                     if(box===1 && sou  && x === 2){
+
                         var ele = $('#box1 td input[type = checkbox]')[0];
                         if($(ele).is(':checked')){
                             crr1.push(ele.value);
@@ -401,15 +455,16 @@
                         }
                         arr = [...new Set(arr.concat(crr1))];  //合并
                         crr1 = [];
+                        sou = false; //重置
                         //-------------------------发送请求  除了arr     只要arr     点击添加(搜索)(不在这边)
-                        var result1 = {type:'all',arr};
-                        var result2 = {type:'only',arr}
+                        result1 = {type:'all',arr};
+                        result2 = {type:'only',arr}
                         demo(url, xr, undefined, undefined, result1);
                         demo2(url, xr2, undefined, undefined, result2);
-                        
-                    }else if(box===2 && sou  && x === 1){
+
+                    }else if(box===2 && sou2  && x === 1){
                         var ele = $('#box2 td input[type = checkbox]')[0];
-                        
+
                         if($(ele).is(':checked')){
                             crr2.push(ele.value);
                         }else{
@@ -417,14 +472,15 @@
                         }
                         arr = [...new Set(arr.concat(crr2))];  //合并
                         crr2 = [];
+                        sou2 = false; //重置
                         // ------------------------发送请求 除了arr   只要 arr    点击删除(搜索)(不在这边)
-                        var result2 = {type:'all',arr};
-                        var result1 = {type:'only',arr}
+                        result2 = {type:'all',arr};
+                        result1 = {type:'only',arr}
                         demo(url, xr, undefined, undefined, result1);
                         demo2(url, xr2, undefined, undefined, result2);
-                        
+
                     }
-                    
+
                     if(box===1 && sou  && x === 1){
                         var ele = $('#box1 td input[type = checkbox]')[0];
                         if($(ele).is(':checked')){
@@ -436,15 +492,16 @@
                             if(index !== -1){
                                 arr.splice(index,1);
                             }
-                        //--------------------------发送请求  只要arr     除了 arr 点击添加(搜索)(在这边) 
-                        var result2 = {type:'all',arr};
-                        var result1 = {type:'only',arr}
+                            sou = false; //重置
+                        //--------------------------发送请求  只要arr     除了 arr 点击添加(搜索)(在这边)
+                        result2 = {type:'all',arr};
+                        result1 = {type:'only',arr}
                         demo(url, xr, undefined, undefined, result1);
                         demo2(url, xr2, undefined, undefined, result2);
-                        
+
                             crr1 = [];
 
-                    }else if(box===2 && sou  && x === 2){
+                    }else if(box===2 && sou2  && x === 2){
                         var ele = $('#box2 td input[type = checkbox]')[0];
                         if($(ele).is(':checked')){
                             crr2.push(ele.value);
@@ -455,18 +512,23 @@
                             if(index !== -1){
                                 arr.splice(index,1);
                             }
+                            sou2 = false; //重置
                         // ---------------------------发送请求  只要arr   除了 arr 点击删除(搜索)(在这边)
-                        var result1 = {type:'all',arr};
-                        var result2 = {type:'only',arr}
+                        result1 = {type:'all',arr};
+                        result2 = {type:'only',arr}
                         demo(url, xr, undefined, undefined, result1);
                         demo2(url, xr2, undefined, undefined, result2);
-                        
+
                         crr2 = [];
                     }
+
+                    console.log(result1);
+                    console.log(arr);
+
                 })
-                return result2;
+
             }
-            var result = condition();
+            condition();
 
 
 
@@ -479,10 +541,10 @@
 
             // 删除操作
             // $('.shanchu').click(function () {
-                
+
             // });
             // 后台请求地址
-            var url = "{:url('Bustasklist/bustasklist')}";
+            var url = "{:url('privateletter/getUserData')}";
             // 初始化弹框
             layui.use(['form', 'laydate', 'laypage', 'layer'], function () {
                 var laydate = layui.laydate;
@@ -491,7 +553,7 @@
 
                 // 页面加载请求数据，及传入渲染函数
                 demo(url, xr, undefined, undefined, result1);  //第一次渲染数据
-                demo2(url, xr2, undefined, undefined, result2); //第二次渲染数据
+                demo2(url, xr2, undefined, undefined, result2); //第一次渲染数据
             });
 
 
@@ -499,58 +561,64 @@
 
             // 渲染拼接方法
             function xr(res) {
-                // 再这里渲染 
+
+                // 再这里渲染
                 var html = "";
                 var end = res['list'].length;
                 for (var i = 0; i < end; i++) {
                     html += "<tr>";
+                    html += "<td><input type='checkbox' tr-id="+res['list'][i]['id']+" value="+res['list'][i]['id']+" ></td>";
                     html += "<td>" + res['list'][i]['id'] + "</td>";
-                    html += "<td>" + res['list'][i]['name'] + "</td>";
-                    html += "<td>" + res['list'][i]['money'] + "</td>";
-                    html += "<td>" + res['list'][i]['man_number'] + "</td>";
-                    html += "<td>" + 1 + "</td>";
+                    html += "<td>" + res['list'][i]['username'] + "</td>";
                     html += "</tr>";
                 }
                 $('#tes').html(html);
+                checkAll({box:['#box1','#box2']});
+
             }
             function xr2(res) {
-                // 再这里渲染 
+                // 再这里渲染
                 var html = "";
                 var end = res['list'].length;
                 for (var i = 0; i < end; i++) {
                     html += "<tr>";
+                    html += "<td><input type='checkbox' tr-id="+res['list'][i]['id']+" value="+res['list'][i]['id']+" ></td>";
                     html += "<td>" + res['list'][i]['id'] + "</td>";
-                    html += "<td>" + res['list'][i]['name'] + "</td>";
-                    html += "<td>" + res['list'][i]['money'] + "</td>";
-                    html += "<td>" + res['list'][i]['man_number'] + "</td>";
-                    html += "<td>" + 1 + "</td>";
+                    html += "<td>" + res['list'][i]['username'] + "</td>";
+
                     html += "</tr>";
                 }
-                $('#tes').html(html);
+                $('#tes2').html(html);
+                checkAll({box:['#box1','#box2']});
             }
 
-            // 点击搜索
-            // $('#search_btn,font').click(function () {
-            //     $('font').removeClass('active');
-            //     var params = $("#tiaojian").serializeArray();
-            //     var data = zhuan(params);
-               
-                
+            $('#submit').click(function(){
+                var this_ = this;
+                var text = $('textarea').val();
+                var postUrl = '';
 
-            //     var jieguo = $("#search").val();
-            //     // 不为空正则
-            //     var regname = /^\s*$/g;
-            //     if (jieguo.search(regname) == -1) {
-            //         data.type = "name";
-            //     }
-            //     // 再次执行请求 及 传入渲染函数
-            //     demo(url, xr, undefined, undefined, data)
+                $.post(postUrl,{content:text,param:result2},function(result){
+                    if(data['status'] ==1){
+                       layer.msg(data['msg']);
+                       setTimeout(function(){
+                           var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                           parent.layer.close(index); //再执行关闭
+                       },1000);
 
-            //     return false;
-            // });
+                   }else{
+                       layer.msg(data['msg']);
+                       setTimeout(function(){
+                           $(this_).removeClass("layui-btn-disabled");
+                           $(this_).attr("disabled",false);
+                       },1000);
+
+                   }
+                });
+            });
+
         });
     </script>
-    
+
 </body>
 
 </html>
