@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>管理员添加</title>
+    <link rel="stylesheet" href="js/layui/css/layui.css">
+    <link rel="stylesheet" href="js/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/biaoge.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/layui/layui.js"></script>
+    <script src="js/main.js"></script>
+    <style>
+        td .form-control{
+            width: auto;
+            padding: 2px;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top">
+            <form action="" id="shaixuan">
+                <input type="text"  class="form-control" id="search" placeholder="会员名称" name="input">
+                <button type="button" class="btn btn-primary" id="search_btn">搜索</button>
+                <button type="button" class="btn btn-primary" id="tianjia" tr-id = "tianjia">添加</button>
+            </form>
+
+    </div>
+    <div class="table-responsive box">
+        <table class="table table-bordered table-hover" id="myform">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>登录名</th>
+                    <th>手机</th>
+                    <th>邮箱</th>
+                    <th>角色</th>
+                    <th>加入时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>小王</td>
+                    <td>504515115</td>
+                    <td>超级管理员</td>
+                    <td>515@qq.com</td>
+                    <td>2018年9月12日</td>
+                    <td>
+                        <button class="layui-btn layui-btn-xs bule" tr-id = "user_0">编辑</button>   
+                        <button class="layui-btn layui-btn-xs red" tr-id = "user_0">删除</button>              
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="test1"></div>
+
+    <script>
+        // 后台请求地址
+        var url = "{:url('Activity/noticeChangeOne')}";
+        // 接受当前分页结果的数据
+        var len; //当前页有几条数据
+        var page;//请求第几条数据
+        var tiao;//每页显示几条数据
+        var data;//搜索条件变量
+        // 初始化弹框
+        layui.use(['laypage', 'layer'], function () {
+            laypage = layui.laypage
+                , layer = layui.layer;
+            // 页面加载请求数据，及传入渲染函数
+            demo(url, xr);
+        });
+
+        // 打开添加
+        $('.top').delegate('#tianjia', 'click', function () {
+            layer.open({
+                type: 2,
+                title: '管理员添加',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area: ['500px', '400px'],
+                offset: '20px',
+                content: 'managerdetail.html'
+            })
+        });
+        
+        // 打开添加
+        $('tbody').delegate('.bule', 'click', function () {
+            var tr_id = $(this).attr("tr-id");
+            layer.open({
+                type: 2,
+                title: '管理员添加',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area: ['500px', '400px'],
+                offset: '20px',
+                content: 'managerdetail.html' + "?id =" + tr_id
+            })
+        });
+
+
+        // 渲染拼接方法
+        function xr(res, curr, limit) {
+            // 对上面的全部变量进行赋值
+            len = res.list.length;
+            page = curr;
+            tiao = limit;
+            console.log(page);
+            // 再这里渲染 
+            var html = "";
+            var end = res['list'].length;
+            for (var i = 0; i < end; i++) {
+                html += "<tr>";
+                html += "<td>" + res['list'][i]['id'] + "</td>";
+                html += "<td>" + res['list'][i]['title'] + "</td>";
+                html += "<td>" + res['list'][i]['content'] + "</td>";
+                html += "<td>" + res['list'][i]['time'] + "</td>";
+                html += "<td>";
+                html += "<button class='layui-btn layui-btn-xs bule' tr-id=" + res['list'][i]['id'] + ">查看/编辑</button>";
+                html += "<button class='layui-btn layui-btn-xs red' tr-id=" + res['list'][i]['id'] + " id='del'>删除</button>";
+                html += "</td>";
+                html += "</tr>";
+            }
+            $('#tes').html(html);
+
+        }
+
+        // 点击搜索
+        $('#search_btn,font').click(function () {
+            var params = $("#shaixuan").serializeArray();
+            data = zhuan(params);
+            if ($(this)[0].id !== "search_btn") {
+                data.paixu = $(this).attr('type');
+                data.fangshi = $(this).attr('paixu');
+            }
+
+            var jieguo = $("#search").val();
+            // 不为空正则
+            var regname = /^\s*$/g;
+            if (jieguo.search(regname) == -1) {
+                data.type = "name";
+            }
+            var url = "{:url('Activity/search')}";
+            // 再次执行请求 及 传入渲染函数
+            console.log(data)
+            demo(url, xr, undefined, undefined, data);
+
+            return false;
+        });
+        // 下拉框触发请求
+        $('#status').change(function () {
+            $('#search_btn').click();
+        });
+
+        
+        // 重新刷新
+        function reload() {
+            if (typeof data == 'undefined') {
+
+                data = { key: "", status: "0", type: "username" };
+            }
+
+            // 如果是让这行数据消失，开启这行代码
+            // if (len == 1) {
+            //     page -= 1;
+            //     if (page == 0) {
+            //         page = 1;
+            //     }
+            // }
+            // 这里的URL 是搜索时请求的url
+            demo(url, xr, page, tiao, data);
+
+        }
+    </script>
+</body>
+</html>

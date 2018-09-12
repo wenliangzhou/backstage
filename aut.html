@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>权限管理</title>
+    <link rel="stylesheet" href="js/layui/css/layui.css">
+    <link rel="stylesheet" href="js/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/biaoge.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/layui/layui.js"></script>
+    <script src="js/main.js"></script>
+    <style>
+        td .form-control{
+            width: auto;
+            padding: 2px;
+            height: auto;
+        }
+        /* .top span{
+            display: inline-block;
+            height: 34.4px;
+            line-height: 34.4px;
+        } */
+    </style>
+</head>
+
+<body>
+    <div class="top">
+        <button type="button" class="btn btn-primary" id="tianjia" tr-id = "tianjia">添加权限节点</button>
+    </div>
+    <div class="table-responsive box">
+        <table class="table table-bordered table-hover" id="myform">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>权限名称</th>
+                    <th>字段名</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>超级管理员</td>
+                    <td></td>
+                    <td>
+                        <button class="layui-btn layui-btn-xs bule" tr-id = "user_0">编辑</button> 
+                        <button class="layui-btn layui-btn-xs red" tr-id = "user_0">删除</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="test1"></div>
+
+    <script>
+        // 后台请求地址
+        var url = "{:url('Activity/noticeChangeOne')}";
+        // 接受当前分页结果的数据
+        var len; //当前页有几条数据
+        var page;//请求第几条数据
+        var tiao;//每页显示几条数据
+        var data;//搜索条件变量
+        // 初始化弹框
+        layui.use(['laypage', 'layer'], function () {
+            var laypage = layui.laypage
+                , layer = layui.layer;
+            // 页面加载请求数据，及传入渲染函数
+            demo(url, xr);
+        });
+
+        // 添加
+        $('.top').delegate('#tianjia', 'click', function () {
+            
+            layer.open({
+                type: 2,
+                title: '权限添加',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area: ['500px', '400px'],
+                offset: '20px',
+                content: 'autdetail.html'
+            })
+        });
+        
+        // 打开编辑
+        $('tbody').delegate('.bule', 'click', function () {
+            var tr_id = $(this).attr("tr-id");
+            layer.open({
+                type: 2,
+                title: '权限添加',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area: ['500px', '400px'],
+                offset: '20px',
+                content: 'autdetail.html' + "?id =" + tr_id
+            })
+        });
+
+
+        // 渲染拼接方法
+        function xr(res, curr, limit) {
+            // 对上面的全部变量进行赋值
+            len = res.list.length;
+            page = curr;
+            tiao = limit;
+            console.log(page);
+            // 再这里渲染 
+            var html = "";
+            var end = res['list'].length;
+            for (var i = 0; i < end; i++) {
+                html += "<tr>";
+                html += "<td>" + res['list'][i]['id'] + "</td>";
+                html += "<td>" + res['list'][i]['title'] + "</td>";
+                html += "<td>" + res['list'][i]['content'] + "</td>";
+                html += "<td>" + res['list'][i]['time'] + "</td>";
+                html += "<td>";
+                html += "<button class='layui-btn layui-btn-xs bule' tr-id=" + res['list'][i]['id'] + ">查看/编辑</button>";
+                html += "<button class='layui-btn layui-btn-xs red' tr-id=" + res['list'][i]['id'] + " id='del'>删除</button>";
+                html += "</td>";
+                html += "</tr>";
+            }
+            $('#tes').html(html);
+
+        }
+
+       
+        // 下拉框触发请求
+        $('#status').change(function () {
+            $('font').click();
+        });
+
+        
+        // 重新刷新
+        function reload() {
+            if (typeof data == 'undefined') {
+
+                data = { key: "", status: "0", type: "username" };
+            }
+
+            // 如果是让这行数据消失，开启这行代码
+            // if (len == 1) {
+            //     page -= 1;
+            //     if (page == 0) {
+            //         page = 1;
+            //     }
+            // }
+            // 这里的URL 是搜索时请求的url
+            demo(url, xr, page, tiao, data);
+
+        }
+    </script>
+</body>
+</html>
