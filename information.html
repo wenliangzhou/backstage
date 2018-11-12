@@ -105,7 +105,7 @@
             </button> 
         </p>
         <p>
-                <button class="btn" style="float: right;margin-right: 30px;">
+                <button class="btn getback" style="float: right;margin-right: 30px;">
                         <a  onclick="javascript:history.back(-1);">
                             返回
                         </a>    
@@ -114,6 +114,29 @@
     </div>
     
 </div> 
-    
+<script>
+    var num = sessionStorage.getItem('fanhui');
+    console.log(num)
+    if(!num||num==0){
+        $('.getback').hide();
+    }else{
+        $('.getback').show();
+    }
+    $('.layui-btn.layui-btn-xs.green').click(function () {
+        var num = sessionStorage.getItem('fanhui');
+        if(!num){
+            sessionStorage.setItem('fanhui',1);
+        }else{
+            num++;
+            sessionStorage.setItem('fanhui',num);
+        }
+    });
+    $('.getback').click(function () {
+        var num = sessionStorage.getItem('fanhui');
+            num--;
+            sessionStorage.setItem('fanhui',num);
+            window.location.reload();
+    });
+</script>
 </body>
 </html>

@@ -75,9 +75,10 @@
         var tiao;//每页显示几条数据
         var data;//搜索条件变量
         // 初始化弹框
-        layui.use(['laypage', 'layer'], function () {
+        layui.use(['laypage', 'layer','element'], function () {
             var laypage = layui.laypage
-                , layer = layui.layer;
+                , layer = layui.layer,
+                element = layui.element;
             // 页面加载请求数据，及传入渲染函数
             demo(url, xr);
         });
@@ -90,7 +91,7 @@
                 title: '添加角色',
                 maxmin: true,
                 shadeClose: true, //点击遮罩关闭层
-                area: ['500px', '400px'],
+                area: ['80%', '80%'],
                 offset: '20px',
                 content: 'roleadd.html'
             })
@@ -104,7 +105,7 @@
                 title: '添加角色',
                 maxmin: true,
                 shadeClose: true, //点击遮罩关闭层
-                area: ['500px', '400px'],
+                area: ['80%', '80%'],
                 offset: '20px',
                 content: 'roleadd.html' + "?id =" + tr_id
             })
@@ -134,7 +135,6 @@
                 html += "</tr>";
             }
             $('#tes').html(html);
-
         }
 
        

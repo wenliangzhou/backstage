@@ -70,7 +70,7 @@ function demo(url, fn, curr = 1, limit, data = "") {
 
 	});
 
-};
+}
 
 function demo2(url, fn, curr = 1, limit, data = "") {
 
@@ -113,7 +113,7 @@ function demo2(url, fn, curr = 1, limit, data = "") {
 
 	});
 
-};
+}
 
 
 
