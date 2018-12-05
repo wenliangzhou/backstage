@@ -9,7 +9,12 @@ $(document).ready(function () {
 	})
 });
 
-
+function ref(this_) {
+	var href = $(this_).attr('_href');
+	if($('iframe[src="'+href+'"]').attr('src')){
+		$('iframe[src="'+href+'"]').attr('src',$('iframe[src="'+href+'"]').attr('src'));
+	}
+}
 
 // 序列数组转化成对象
 function zhuan(x) {

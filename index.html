@@ -90,17 +90,17 @@
 
                     </dd>
                     <dd>
-                        <a href="javascript:;" _href="busList.html">
+                        <a href="javascript:;" _href="busList.html" onclick="ref(this)">
                             <cite>商家列表</cite>
                         </a>
                     </dd>
                     <dd>
-                        <a href="javascript:;" _href="busSendTask.html">
+                        <a href="javascript:;" _href="busSendTask.html" onclick="ref(this)">
                             <cite>商家发布任务</cite>
                         </a>
                     </dd>
                     <dd>
-                        <a href="javascript:;" _href="busTaskList.html">
+                        <a href="javascript:;" _href="busTaskList.html" onclick="ref(this)">
                             <cite>商家任务列表</cite>
                         </a>
                     </dd>
@@ -336,7 +336,7 @@
     <!-- 右侧主体结束 -->
     <script>
         $(document).ready(function () {
-
+            
             // 导入模块功能
             layui.use(['form', 'element', 'layer'],
                 function () {
@@ -385,7 +385,8 @@
                 }
 
             });
-
+            // 刷新方法
+           
             // 增加tab页面
             $('.layui-nav li dd').click(function () {
                 if ($(this).children('.menu').length) {
@@ -396,7 +397,7 @@
                     var title = $(this).find('cite').html();
                     var index = $('.layui-nav li dd').index($(this));
                     console.log(url, title, index);
-
+                    
                     for (var i = 0; i < $('.x-iframe').length; i++) {
                         if ($('.x-iframe').eq(i).attr('tab-id') == index + 1) {
                             tab.tabChange(index + 1);
@@ -417,7 +418,7 @@
                 $('dd.'+clas).click();
             });
 
-
+            
         })
     </script>
 </body>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -114,60 +115,140 @@
         .lianjie{
             color: red;
         }
+        .lei-wrapper{
+            display: block;
+            margin: 20px 0px;
+            border:rgb(156, 156, 141) solid 1px;
+            
+        }
+        .lei-wrapper .active::after{
+            content: '√';
+            position: relative;
+            margin-left: 10px;
+            color: red;
+            font-size: 25px;
+            vertical-align: bottom;
+        }
+        .lei-wrapper .active{
+            color: #000000 !important;
+        }
+        .lei-wrapper li{
+            display: inline-block;
+            line-height: 40px;
+            height: auto;
+            padding: 0 15px;
+        }
+        .lei-wrapper ul{
+            margin-bottom: 0px;
+        }
+        .lei-wrapper li:hover{
+            color: rgb(156, 156, 141);
+        }
+        .layui-tab-content .layui-tab-content::after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+        .lei-wrapper .layui-tab{
+            margin: 0px;
+            padding: 0px;
+        }
+        .lei-wrapper .layui-tab-title {
+            height: auto;
+            margin-bottom: 0px;
+            white-space: normal;
+        }
+        .lei-wrapper .layui-tab-title .layui-this:after{
+            border: none;
+        }
+        .lei-wrapper .layui-tab-content{
+            padding: 0px;
+            width: 100%;
+        }
+        .fenlei{
+            vertical-align: top;
+            margin-left: 8px;
+        }
+        .lei-wrapper >.layui-tab > ul.layui-tab-title{
+            color: #000000;
+        }
+        .lei-wrapper >.layui-tab > ul.layui-tab-title li{
+            font-size: 14px !important;
+        }
+        .lei-wrapper  ul.layui-tab-title li.layui-this{
+            color: blueviolet;
+        }
+        .lei-wrapper  ul.layui-tab-title > li{
+            font-size: 13px;
+        }
+        .lei-wrapper  ul{
+            font-size: 12px;
+        }
     </style>
 </head>
 
-<script>
-    $(document).ready(function () {
-        
-            layui.use(['layer'], function () {
-                var layer = layui.layer;
-            });
-            
 
-        $('tbody').delegate('.green','click',function () {
-            var tr_id = $(this).attr("tr-id");
-            layer.open({
-                type: 2,
-                title: '详细信息',
-                maxmin: true,
-                shadeClose: true, //点击遮罩关闭层
-                area: ['80%', '520px'],
-                offset: '20px',
-                content: 'busSendTaskdetail.html'+"?id ="+ tr_id 
-            })
-            console.log(tr_id);
-        });
-
-        $('tbody').delegate('.bule','click',function () {
-            var tr_id = $(this).attr("tr-id");
-            layer.open({
-                type: 2,
-                title: '详细信息',
-                maxmin: true,
-                shadeClose: true, //点击遮罩关闭层
-                area: ['80%', '520px'],
-                offset: '20px',
-                content: 'edit.html'
-            })
-        });
-
-
-    })
-</script>
 <body>
     <div class="top">
         <form action="" id="shaixuan">
             <input type="text" class="form-control" name="user" id="search" placeholder="商家名称">
-            
-            <select name="status" id="status" class="xiala">
-                <option value="0">请选择类型</option>
-                <option value="1">SEO</option>
-                <option value="2">软文</option>
-                <option value="3">制作</option>
-                <option value="4">创意</option>
-            </select>
-            <button class="btn btn-primary" id="search_btn">搜索</button>
+            <div class="fenlei btn btn-primary" data-lei-num="0">分类 : 全部</div>
+            <button type="button" class="btn btn-primary" id="search_btn">搜索</button>
+            <div class="lei-wrapper">
+                <div class="layui-tab">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this" data-lei-num="0">全部</li>
+                        <li data-lei-num="1">任务类</li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show">
+                            <div class="layui-tab">
+                                <ul class="layui-tab-title">
+                                    <li class="" data-lei-num="0,0">seo分类</li>
+                                    <li data-lei-num="0,1">snsseo分类</li>
+                                    <li data-lei-num="0,1">知道分类</li>
+                                </ul>
+                                <div class="layui-tab-content">
+                                    <div class="layui-tab-item">
+                                        <ul class="">
+                                            <li data-lei-num="0,0,0">百度词条</li>
+                                            <li data-lei-num="0,0,1">百度问答</li>
+                                        </ul>
+                                    </div>
+                                    <div class="layui-tab-item">
+                                        <ul>
+                                            <li data-lei-num="0,1,0">sns小类1</li>
+                                            <li data-lei-num="0,1,1">sns小类2</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-tab-item">
+                            <div class="layui-tab">
+                                <ul class="layui-tab-title">
+                                    <li class="" data-lei-num="1,0">视频类</li>
+                                    <li data-lei-num="1,1">软文类</li>
+                                </ul>
+                                <div class="layui-tab-content">
+                                    <div class="layui-tab-item">
+                                        <ul>
+                                            <li data-lei-num="1,0,0">视频类1</li>
+                                            <li data-lei-num="1,0,1">视频类2</li>
+                                        </ul>
+                                    </div>
+                                    <div class="layui-tab-item">
+                                        <ul>
+                                            <li data-lei-num="1,1,0">软文类1</li>
+                                            <li data-lei-num="1,1,1">软文类2</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
     <div class="table-responsive box">
@@ -182,7 +263,7 @@
                     <th>审核状态</th>
                     <th>任务类型</th>
                     <th>操作</th>
-                    
+
                 </tr>
             </thead>
             <tbody id="tes">
@@ -194,89 +275,86 @@
                     <td>2018年8月21日</td>
                     <td>未审核</td>
                     <td>SEO</td>
-                    
+
                     <td>
-                        <button class="layui-btn layui-btn-xs green" id="sd" tr-id = "user_0">查看</button>
+                        <button class="layui-btn layui-btn-xs green" id="sd" tr-id="user_0">查看</button>
                         <button class="layui-btn layui-btn-xs bule">通过</button>
-                        <button class="layui-btn layui-btn-xs red" tr-id = "user_0">拒绝</button>
+                        <button class="layui-btn layui-btn-xs red" tr-id="user_0">拒绝</button>
                     </td>
                 </tr>
-                
-                
+
+
             </tbody>
         </table>
     </div>
-    <table id="tess">
-
-    </table>
-    <div id="test1"></div>
-   
     <script>
-        var data = [{"id":1,"vip_name":"\u5c0f","task_number":22,"task_nat":22,"task_num":22},{"id":2,"vip_name":"\u554a","task_number":22,"task_nat":22,"task_num":22},{"id":3,"vip_name":"\u822a\u822a","task_number":2,"task_nat":2,"task_num":2},{"id":4,"vip_name":"\u54c8\u54c8\u54c8","task_number":3,"task_nat":3,"task_num":3},{"id":5,"vip_name":"\u65a4\u65a4\u8ba1\u8f83","task_number":3,"task_nat":3,"task_num":3},{"id":6,"vip_name":"\u54c8\u54c8\u54c8","task_number":null,"task_nat":null,"task_num":null},{"id":7,"vip_name":"3333","task_number":null,"task_nat":null,"task_num":null},{"id":8,"vip_name":"333","task_number":null,"task_nat":null,"task_num":null},{"id":9,"vip_name":"33","task_number":null,"task_nat":null,"task_num":null}];
-        layui.use(['laypage', 'layer'], function () {
-                var laypage = layui.laypage
-                ,layer = layui.layer;
+        $(document).ready(function () {
 
-                //执行一个laypage实例
-                laypage.render({
-                    elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
-                    , count: data.length //数据总数，从服务端得到
-                    ,limit:2
-                    , jump: function (obj) {
-                        //模拟渲染
-                        var html = "";
-                        document.getElementById('tess').innerHTML = function () {
-                            var thisData = data.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
-                            
-                            layui.each(thisData, function(index, item){
-                                console.log(index);
-                                console.log(item);
-                                if(item)
-                                
-                                    html += "<tr><td>"+item.id+"</td><td>"+item.vip_name+"</td><td>"+item.task_number+"</td><td>"+item.task_nat+"</td><tr>";
-                                
-                            });
-                            console.log( html)
-                            return html;
-                        }();
-                    }
-                });
-                
-
+            layui.use(['layer', 'element'], function () {
+                var layer = layui.layer;
+                var element = layui.element;
             });
 
+
+            $('tbody').delegate('.green', 'click', function () {
+                var tr_id = $(this).attr("tr-id");
+                layer.open({
+                    type: 2,
+                    title: '详细信息',
+                    maxmin: true,
+                    shadeClose: true, //点击遮罩关闭层
+                    area: ['80%', '520px'],
+                    offset: '20px',
+                    content: 'busSendTaskdetail.html' + "?id =" + tr_id
+                })
+                console.log(tr_id);
+            });
+
+            $('tbody').delegate('.bule', 'click', function () {
+                var tr_id = $(this).attr("tr-id");
+                layer.open({
+                    type: 2,
+                    title: '详细信息',
+                    maxmin: true,
+                    shadeClose: true, //点击遮罩关闭层
+                    area: ['80%', '520px'],
+                    offset: '20px',
+                    content: 'edit.html'
+                })
+            });
+            $(document).on('click','.lei-wrapper li',function () {
+                console.log($(this));
+                let num = $(this).attr('data-lei-num');
+                $('.lei-wrapper li').removeClass('active');
+                $(this).addClass('active');
+                $('.fenlei').attr('data-lei-num',num);
+                let arr = num.split(','),
+                    str = '',
+                    html = '';
+                arr.forEach(el => {
+                    str += el+',';
+                   
+                    console.log(str.replace(/[,]$/,''));
+                    html += $('li[data-lei-num = '+str.replace(/[,]$/,'').replace(/,/g,'\\,')+']').html() +'-';
+                });
+                html = html.replace(/[-]$/,'');
+                $('.fenlei').html('分类 : '+html);
+            });
+            $('.fenlei').click(function () {
+                $('.lei-wrapper').toggle(200);
+            });
+
+            // 搜索点击事件
             $('#search_btn').click(function () {
-                var params = $("#shaixuan").serialize();
-                console.log(params.user);
-                var user = '196.168.101.1';
-                // IP正则
-                var regIp = /((25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d)))\.){3}(25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d)))/g
-                // 电话号码
-                var regIh = /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/;
-                if(params.user.search(regIp) !== -1){
-                    params.type = 'ip';
-                }else if(params.user.search(regIh) !== -1){
-                    params.type = 'phone';
-                }else{
-                    params.type = 'username';
+                let arr = $('.fenlei').attr('data-lei-num').split(','),
+                    data ={};
+                for (const [index,el] of arr.entries()) {
+                    data['lei'+index] = el;
                 }
-
-                $.ajax( {
-                    type : "POST",
-                    url : "RegisterAction.action",
-                    data : params,
-                    success : function(msg) {
-                        alert("success: " + msg);
-                    }
-                });
-                return false;
-            });
-            
-            // 状态分类监听
-            $('#status').change(function () {
-                $("#search_btn").click();
-            });
-           
-        </script>
+                console.log(data);
+            })
+        })
+    </script>
 </body>
+
 </html>
