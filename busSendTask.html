@@ -321,23 +321,23 @@
                     content: 'edit.html'
                 })
             });
-            $(document).on('click','.lei-wrapper li',function () {
+            $(document).on('click', '.lei-wrapper li', function () {
                 console.log($(this));
                 let num = $(this).attr('data-lei-num');
                 $('.lei-wrapper li').removeClass('active');
                 $(this).addClass('active');
-                $('.fenlei').attr('data-lei-num',num);
+                $('.fenlei').attr('data-lei-num', num);
                 let arr = num.split(','),
                     str = '',
                     html = '';
                 arr.forEach(el => {
-                    str += el+',';
-                   
-                    console.log(str.replace(/[,]$/,''));
-                    html += $('li[data-lei-num = '+str.replace(/[,]$/,'').replace(/,/g,'\\,')+']').html() +'-';
+                    str += el + ',';
+
+                    console.log(str.replace(/[,]$/, ''));
+                    html += $('li[data-lei-num = ' + str.replace(/[,]$/, '').replace(/,/g, '\\,') + ']').html() + '-';
                 });
-                html = html.replace(/[-]$/,'');
-                $('.fenlei').html('分类 : '+html);
+                html = html.replace(/[-]$/, '');
+                $('.fenlei').html('分类 : ' + html);
             });
             $('.fenlei').click(function () {
                 $('.lei-wrapper').toggle(200);
@@ -346,12 +346,47 @@
             // 搜索点击事件
             $('#search_btn').click(function () {
                 let arr = $('.fenlei').attr('data-lei-num').split(','),
-                    data ={};
-                for (const [index,el] of arr.entries()) {
-                    data['lei'+index] = el;
+                    data = {};
+                for (const [index, el] of arr.entries()) {
+                    data['lei' + index] = el;
                 }
-                console.log(data); 
-            })
+                console.log(data);
+                $.get('http://mcat88.com/index.php/admin/Test/getTaskCateData', {}, function (data) {
+                    console.log(data);
+                    const tmpl = res => `
+                    <div class="layui-tab">
+                        <ul class="layui-tab-title">
+                            ${res.map((el,index)=>`
+                                <li ${index ==0? 'class="layui-this"':''} data-lei-num="${el.id}">${el.cate_name}</li>
+                            `).join('')}
+                        </ul>
+                        <div class="layui-tab-content">
+                            ${res.map((el,index)=>`
+                                <div ${index ==0? 'class="layui-tab-item layui-show"':'class="layui-tab-item"'} >
+                                    <div class="layui-tab">
+                                        <ul class="layui-tab-title">
+                                            ${el.subCateList.map((el1,index)=>`
+                                                <li data-lei-num="${el.id},${el1.id}">${el1.cate_name}</li>
+                                            `).join('')}
+                                        </ul>
+                                        <div class="layui-tab-content">
+                                            ${el.subCateList.map((el1,index)=>`
+                                                <div class="layui-tab-item">
+                                                    <ul>
+                                                        ${el1.subCateList == undefined ? '': el1.subCateList.map(el2 => `
+                                                            <li data-lei-num="${el.id},${el1.id},${el2.id}">${el2.cate_name}</li>
+                                                        `).join('')}
+                                                    </ul>
+                                                </div>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}                      
+                    `;
+                    $('.lei-wrapper').html(tmpl(data))
+                });
+            });
         })
     </script>
 </body>
