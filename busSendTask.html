@@ -356,13 +356,15 @@
                     const tmpl = res => `
                     <div class="layui-tab">
                         <ul class="layui-tab-title">
+                            <li class="layui-this" data-lei-num="0">全部</li>
                             ${res.map((el,index)=>`
-                                <li ${index ==0? 'class="layui-this"':''} data-lei-num="${el.id}">${el.cate_name}</li>
+                                <li data-lei-num="${el.id}">${el.cate_name}</li>
                             `).join('')}
                         </ul>
                         <div class="layui-tab-content">
+                            <div class="layui-tab-item layui-show"></div>
                             ${res.map((el,index)=>`
-                                <div ${index ==0? 'class="layui-tab-item layui-show"':'class="layui-tab-item"'} >
+                                <div class="layui-tab-item"} >
                                     <div class="layui-tab">
                                         <ul class="layui-tab-title">
                                             ${el.subCateList.map((el1,index)=>`
