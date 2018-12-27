@@ -398,8 +398,13 @@
             });
             // 滚动
             $('.marquee').liMarquee();
-            $.subscribe('done',()=>{
-                alert(1);
+            $.subscribe('done',(e,arg)=>{
+                console.log(arg);
+                for (const v of $('.marquee span')) {
+                    if($(v).attr('_href') === arg){
+                        $(v).remove();
+                    }
+                }
             });
         })
     </script>
