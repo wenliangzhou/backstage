@@ -192,6 +192,8 @@
         });
         // 下拉框触发请求
         $('#status').change(function () {
+            console.log(window.parent.$.publish('done'));
+            
             $('#search_btn').click();
         });
 

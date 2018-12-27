@@ -337,7 +337,7 @@
                 }
                 , tabChange: function (id) {
                     //切换到指定Tab项
-                    console.log(element.tabChange('demo', id));//切换到：用户管理
+                    element.tabChange('demo', id);//切换到：用户管理
                 }
             };
 
@@ -387,11 +387,10 @@
 
             // 链接添加页面
             $(document).on('click','.marquee span',function () {
+                $.publish('done');
                 let href = $(this).attr('_href');
-                console.log(href);
                 for (const v of $('.layui-nav li a[_href]')) {
                     if(href === $(v).attr('_href')){
-                        console.log($(v).parent());
                         $(v).parent().trigger('click');
                         return false;
                     }
@@ -399,6 +398,9 @@
             });
             // 滚动
             $('.marquee').liMarquee();
+            $.subscribe('done',()=>{
+                alert(1);
+            });
         })
     </script>
 </body>
