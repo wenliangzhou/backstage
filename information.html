@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="js/layui/css/layui.css">
-    <script src="js/layui/layui.js"></script>
+    <script src="js/layui/layui.all.js"></script>
     <title>会员详细信息</title>
     <style>
         /* .box div{
@@ -115,6 +115,9 @@
     
 </div> 
 <script>
+    // var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+    // console.log(index);
+
     var num = sessionStorage.getItem('fanhui');
     console.log(num)
     if(!num||num==0){

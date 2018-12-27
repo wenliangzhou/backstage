@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="js/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/biaoge.css">
     <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/layui/layui.js"></script>
+    <script src="js/layui/layui.all.js"></script>
     <script src="js/main.js"></script>
     <style>
         /* html,body{
@@ -125,21 +125,28 @@
             });
             
 
-        $('tbody').delegate('.green','click',function () {
+        $('tbody').on('click','.green',function () {
             var tr_id = $(this).attr("tr-id");
             layer.open({
                 type: 2,
                 title: '详细信息',
-                maxmin: true,
+                offset: 'auto',
                 shadeClose: true, //点击遮罩关闭层
-                area: ['80%', '520px'],
-                offset: '20px',
-                content: 'information.html'+"?id ="+ tr_id 
+                area: ['80%','auto'],
+                content: 'information.html'+"?id ="+ tr_id ,
+                success:function(layero, index){
+                    layer.iframeAuto(index);
+                    console.log(layero);
+                    let el = $(layero.selector);
+                    // el.css('top','50%');
+                    // el.css('margin-top',-(el.height()/2));
+                    
+                }
             })
             console.log(tr_id);
         });
 
-        $('tbody').delegate('.bule','click',function () {
+        $('tbody').on('click','.bule',function () {
             var tr_id = $(this).attr("tr-id");
             layer.open({
                 type: 2,
@@ -319,7 +326,11 @@
             $('#status').change(function () {
                 $("#search_btn").click();
             });
-           
+            console.log(top);
+            
+            if (top != self) {
+                window.top.location.reload();
+            }
         </script>
 </body>
 </html>

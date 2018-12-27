@@ -1,6 +1,6 @@
 .container {
+    height: 46px;
     width: 100%;
-    
     background-color: rgb(34, 34, 34);
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     position: relative;
@@ -134,54 +134,32 @@ a {
     background-color: #292B34;
 }
 /* 顶部公告样式 */
-
-.container .box {
-    width: 400px;
-    margin-left: 60px;
-    height: 42px;
-    /* border: 1px solid #ff6700; */
+.marquee {
+    min-width: 320px;
     overflow: hidden;
-    float: right;
-   
-}
-.container .animate a{
+    background: rgb(34, 34, 34);
+    height: 100%;
+    line-height: 46px;
+    margin-right: 150px;
+    margin-left: 300px;
+    width: auto;
     color: red;
-    font-size: 13px;
-    line-height: 42px;
-    padding-left: 10px;
 }
-.container .animate {
-    font-size: 12px;
+.marquee span{
+    margin: 0px 2px;
+    padding: 0px 8px;
     display: inline-block;
-    white-space: nowrap;
-    animation: 15s wordsLoop linear infinite normal;
-    box-sizing: content-box;
-    
+    height: 30px;
+    line-height: 30px;
+    color: red;
 }
-
-@keyframes wordsLoop {
-    0% {
-        transform: translateX(400px);
-        -webkit-transform: translateX(400px);
-    }
-    100% {
-        transform: translateX(-100%);
-        -webkit-transform: translateX(-100%);
-    }
+.marquee span:hover{
+    background: rgb(124, 50, 209);
+    border-radius: 20px;
+    color: white;
 }
-
-@-webkit-keyframes wordsLoop {
-    0% {
-        transform: translateX(400px);
-        -webkit-transform: translateX(400px);
-    }
-    100% {
-        transform: translateX(-100%);
-        -webkit-transform: translateX(-100%);
-    }
-}
-.container .animate:hover {
-    animation-play-state: paused
+.marquee:hover{
+    background: rgb(34, 34, 34);
 }
 /* 手机兼容 */
 @media screen and (max-width: 450px) {
@@ -228,5 +206,8 @@ a {
             transform: translateX(-100%);
             -webkit-transform: translateX(-100%);
         }
+    }
+    .marquee {
+        margin: 0px;
     }
 }

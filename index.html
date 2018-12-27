@@ -7,13 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>首页</title>
     <link rel="stylesheet" href="js/layui/css/layui.css">
+    <link rel="stylesheet" href="css/liMarquee.css">
     <link rel="stylesheet" href="css/main.css">
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/layui/layui.js"></script>
-
+    <script src="js/jquery.liMarquee.js"></script>
 </head>
-
 <body>
     <!-- 顶部开始 -->
     <div class="container">
@@ -23,9 +23,6 @@
         <div class="left_open">
             <i class="layui-icon layui-icon-spread-left"></i>
         </div>
-        
-            
-      
         <ul class="layui-nav right" lay-filter="">
             <li class="layui-nav-item">
                 <a href="javascript:;">用户名</a>
@@ -38,18 +35,11 @@
             </li>
 
         </ul>
-        <div class="box">
-            <p class="animate">
-                <!-- <a href="深拷贝.html">有一条未审核的内容</a> -->
-                <a href="javascript:;" class="cuo1">
-                    有一条未审核的内容
-                </a>
-                <a href="javascript:;" class="cuo2">
-                    有两条未审核的内容
-                </a>
-            </p>
+        <div class="marquee">
+            <span _href = 'question.html'>问卷调查一条信息</span>
+            <span _href = 'shangxiajia.html'>上下家一条信息</span>
+            <span _href = 'duitongji.html'>兑换有消息通知</span>
         </div>
-        
     </div>
     <!-- 顶部结束 -->
     <!-- 中部开始 -->
@@ -300,22 +290,6 @@
             <li class="layui-nav-item">
                 <a href="">在线调查</a>
             </li>
-            <!-- 滚动条打开的页面 -->
-            <li class="layui-nav-item" style="visibility: hidden;position: absolute;top: 0px;">
-                <dd class="cuo1">
-                    <a href="javascript:;" _href="深拷贝.html">
-                        <cite>一条错误的信息</cite>
-                    </a>
-                </dd>
-            </li>
-            <li class="layui-nav-item" style="visibility: hidden;position: absolute;top: 0px;">
-                <dd class="cuo2">
-                    <a href="javascript:;" _href="深拷贝.html">
-                        <cite>一条错误的信息</cite>
-                    </a>
-                </dd>
-            </li>
-            
         </div>
     </ul>
     <!-- 左侧菜单结束 -->
@@ -363,7 +337,7 @@
                 }
                 , tabChange: function (id) {
                     //切换到指定Tab项
-                    element.tabChange('demo', id); //切换到：用户管理
+                    console.log(element.tabChange('demo', id));//切换到：用户管理
                 }
             };
 
@@ -397,7 +371,6 @@
                     var title = $(this).find('cite').html();
                     var index = $('.layui-nav li dd').index($(this));
                     console.log(url, title, index);
-                    
                     for (var i = 0; i < $('.x-iframe').length; i++) {
                         if ($('.x-iframe').eq(i).attr('tab-id') == index + 1) {
                             tab.tabChange(index + 1);
@@ -413,12 +386,19 @@
             });
 
             // 链接添加页面
-            $('.animate a').click(function () {
-                var clas = $(this).attr('class');
-                $('dd.'+clas).click();
+            $(document).on('click','.marquee span',function () {
+                let href = $(this).attr('_href');
+                console.log(href);
+                for (const v of $('.layui-nav li a[_href]')) {
+                    if(href === $(v).attr('_href')){
+                        console.log($(v).parent());
+                        $(v).parent().trigger('click');
+                        return false;
+                    }
+                }
             });
-
-            
+            // 滚动
+            $('.marquee').liMarquee();
         })
     </script>
 </body>
